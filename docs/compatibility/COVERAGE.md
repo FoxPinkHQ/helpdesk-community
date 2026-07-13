@@ -9,26 +9,51 @@
 > that series' Docker instance. `Verified` means source-proven but not yet
 > Docker-confirmed.
 
-## Snapshot (helpdesk-community, pre-Docker)
+## Snapshot (helpdesk-community, post-Docker 14–19)
 
 | Pass         | Total | Stable | Verified | Draft | Evidence | Stable |
 | ------------ | ----- | ------ | -------- | ----- | -------- | ------ |
-| ManifestPass | 1     | 0      | 1        | 0     | 100%     | 0%     |
-| TrackingPass | 3     | 0      | 2        | 1     | 67%      | 0%     |
-| ViewPass     | 7     | 1      | 4        | 2     | 71%      | 14%    |
-| SecurityPass | 1     | 0      | 1        | 0     | 100%     | 0%     |
-| ReportPass   | 1     | 0      | 1        | 0     | 100%     | 0%     |
-| AssetPass    | 1     | 0      | 0        | 1     | 0%       | 0%     |
-| **TOTAL**    | **14**| **1**  | **10**   | **3** | **79%**  | **7%** |
+| ManifestPass | 1     | 1      | 0        | 0     | 100%     | 100%   |
+| TrackingPass | 3     | 2      | 1        | 0     | 100%     | 67%    |
+| ViewPass     | 8     | 5      | 2        | 1     | 88%      | 63%    |
+| SecurityPass | 1     | 1      | 0        | 0     | 100%     | 100%   |
+| ReportPass   | 1     | 1      | 0        | 0     | 100%     | 100%   |
+| AssetPass    | 1     | 0      | 1        | 0     | 100%     | 0%     |
+| TestPass     | 1     | 1      | 0        | 0     | 100%     | 100%   |
+| **TOTAL**    | **16**| **11** | **4**    | **1** | **94%**  | **69%**|
 
 ## Reading the snapshot
 
-- **77% evidence** — most rules are already source-proven; the knowledge base is
-  no longer just notes.
-- **8% Stable** — almost nothing has been Docker-confirmed yet. This is the
-  honest gate: **do not release / do not auto-apply** until Stable climbs.
-- **AssetPass 0%** — expected; helpdesk-community has no OWL. Will be exercised by
-  the first asset-bearing module (module #2).
+- **94% evidence · 69% Stable** — the whole golden was compiled to 18→14 through
+  the layer and **installed + passed 14/14 tests on all six series** (see log).
+- **Every rule *exercised* by this module is now Stable** (Manifest, Tracking
+  R-ORM-001/002, View R-VIEW-001/002/003/004/007, Security, Report, Test). The
+  4 non-Stable rules are **not exercised** by helpdesk-community:
+  - R-ORM-003 (aggregator), R-ASSET-001 (assets) — Verified, need an exercising
+    module + Docker → Stable.
+  - R-VIEW-005 (states), R-VIEW-006 (group expand) — Verified golden-lints;
+    nothing to run.
+  - R-VIEW-008 (attrs↔invisible) — Draft (Unknown), transform unmapped.
+- **Market gate result:** for this module's exercised rule set, **Stable coverage
+  = 100% across 14–19**. Install + Tests columns of the ADR-001 DoD are green;
+  Package/screenshots/CI remain before an actual Market Release.
+
+## Compiler safety KPIs (correctness, not just coverage)
+
+Coverage answers "how much do we know". These answer "can we trust auto-apply".
+The Compiler must optimise for **being right or silent, never wrong**.
+
+| KPI | Target | Meaning | Current |
+| --- | ------ | ------- | ------- |
+| **False Positive** | **0** | a rule auto-applied where it should not fire (wrong transform emitted) | 0 known |
+| **False Negative** | low | a needed rule missed → *golden ships unchanged*, not miscompiled | 1 known gap: R-VIEW-008 (flagged, not silent) |
+| **Unknown > Wrong** | always | when unsure, Compiler emits "Unknown" (Draft/warn + human confirm) instead of guessing | enforced: only `Stable` auto-applies; `Draft` warns |
+
+Governing principle: a **False Positive is a release blocker**; a **False
+Negative that leaves the golden untouched is tolerable** (the module may not build
+for that series, but it never ships *wrong* code). FA-005 is the cautionary tale —
+a wrong boundary (states "removed in 19") would have been a False Positive on
+17/18; it was caught by source verification before any artifact was generated.
 
 ## Path to release (Stable → 100% for exercised passes)
 
@@ -47,16 +72,28 @@ rules it actually fires:
 
 | Rule / event                    | 19 | 18 | 17 | 16 | 15 | 14 |
 | ------------------------------- | -- | -- | -- | -- | -- | -- |
-| Golden install + 14 tests green | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| R-ORM-002 (group_expand)        | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
-| F-001 (view groups= resolves)   | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ |
+| Golden install + 14 tests green | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| R-ORM-002 (group_expand)        | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| F-001 (view groups= resolves)   | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| R-VIEW-001/002 (list/card)      | =  | =  | ✅ | ✅ | ✅ | ✅ |
+| R-TEST-001 (Savepoint on 14)    | =  | =  | =  | =  | =  | ✅ |
 
-- 2026-07-13: Docker 19 (`odoo:19.0`, db `test_hd`) — `14 tests, 0 failed,
-  0 error`, **0 "group does not exist" warnings**. `test_13_group_expand_orm_path`
-  drives the real ORM path (proves 3-arg golden signature);
-  `test_14_security_groups_resolve` guards F-001. R-ORM-002 + F-001 fix are
-  **verified on 19** (1/6); full Stable needs 18→14 green under ADR-001.
-- Golden bumped to **19.0.1.0.1** (patch: F-001 + R-ORM-002 fixes).
+**✅ ALL SIX SERIES GREEN (14–19): install + 14/14 tests, 0 error.** (`=` = identity,
+rule not required on that series.)
+
+- 2026-07-13: Docker 19 (`test_hd`) — `14 tests, 0 failed, 0 error`, 0 "group does
+  not exist" warnings. 3-arg golden signature + F-001 fix confirmed.
+- 2026-07-13: Docker **18/17/16/15/14** — each compiled via `build_version.ps1`,
+  installed with `-i helpdesk_community --test-enable`: **14 tests, 0 failed,
+  0 error** on every series. 17→14 exercise R-ORM-002 (4-arg + `test_12` call-site
+  rewrite); 14 additionally exercises **R-TEST-001** (`TransactionCase`→
+  `SavepointCase`, discovered here).
+- Golden = **19.0.1.0.1** (Engineering release). Docker validation (Phase 1.5B)
+  complete → exercised rules promoted to **Stable**.
+- **F-003 (golden-quality, non-blocking):** Docker 18 logs `'kanban-box' is
+  deprecated, define a 'card' template instead` — golden kanban still uses
+  `t-name="kanban-box"`. Works (0 error) but golden should move to `t-name="card"`
+  with the compiler emitting `kanban-box` for ≤17 (extends R-VIEW-002). Deferred.
 
 ## Open findings (surfaced during verification, NOT compatibility rules)
 
@@ -69,9 +106,17 @@ rules it actually fires:
 
 ## Draft backlog (promote before they can ever be Stable)
 
-| Rule        | Pass     | Blocker to Verified                          |
-| ----------- | -------- | -------------------------------------------- |
-| R-ORM-003   | Tracking | confirm `aggregator` kwarg name 17 vs 18 in `fields.py` |
-| R-VIEW-005  | View     | confirm `states` removal in 19 source        |
-| R-VIEW-006  | View     | confirm search `<group expand>` removal in 19 source |
-| R-ASSET-001 | Asset    | confirm manifest `assets` vs XML bundle on 14 |
+| Rule        | Pass     | Status | Blocker to next stage |
+| ----------- | -------- | ------ | --------------------- |
+| R-ORM-003   | Tracking | ✅ Verified (boundary 18.0) | Docker run on a module using `aggregator` → Stable |
+| R-VIEW-005  | View     | ✅ Verified (boundary 17.0, corrected) | golden-lint; n/a to Stable pipeline |
+| R-VIEW-006  | View     | ✅ Verified (boundary 19.0) | golden-lint; n/a to Stable pipeline |
+| R-ASSET-001 | Asset    | ✅ Verified (boundary 15.0) | Docker 14 render of an OWL module → Stable |
+| R-VIEW-008  | View     | ⚠ Draft (Unknown) | map 17+ modifier expr → ≤16 `attrs`, diff on a real module |
+
+**Exercised-rule Stable coverage = 100% across 14–19.** The 4 non-Stable rules
+above are not exercised by helpdesk-community (no `aggregator`, no OWL assets, no
+`states`/dynamic-modifier views); they need an exercising module to reach Stable.
+
+All 2026-07-13 verifications used primary source grepped inside the official
+`odoo:14.0`–`odoo:19.0` images. Evidence Packs: `evidence/<RULE>/`.

@@ -62,3 +62,19 @@
   so no transform is needed.
 - **Replacement:** R-VIEW-003 = identity. Note kept: if a future golden adopts
   `<chatter/>`, add R-VIEW-003b (expand to legacy div for ≤17).
+
+## FA-005 — "the `states`/`attrs` attributes were removed in 19"
+
+- **Assumption:** `states` (and `attrs`) view attributes disappear at the 19
+  boundary, so R-VIEW-005 documents a 19-only constraint.
+- **Evidence:** `ir_ui_view.py` + `common.rng` read across images 16→19.
+- **Result:** FALSE (wrong boundary).
+- **Why wrong:** they were removed in **17.0**, not 19. 16.0 still *processes*
+  `states` (`ir_ui_view.py:89`, converting it to `invisible` modifiers); 17.0+
+  raise `ValidationError("Since 17.0, the 'attrs' and 'states' attributes are no
+  longer used")`. The RNG `<group>` define drops `states`+`attrs` at 17.0. Being
+  wrong by two series would have made the Compiler emit `states` for 17/18 targets
+  → broken installs.
+- **Replacement:** R-VIEW-005 re-verified with boundary **17.0**. Also surfaced
+  the real transform gap **R-VIEW-008** (rewrite 17+ `invisible` domains back to
+  legacy `attrs` for ≤16) — kept Draft (Unknown) rather than guessed.

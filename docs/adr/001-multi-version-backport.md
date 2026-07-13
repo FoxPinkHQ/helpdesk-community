@@ -75,12 +75,16 @@ Engineering Milestone  ──▶  Compatibility Verified (14–19)  ──▶  M
 
 | Version | Install | Tests | Package |
 |---------|:-------:|:-----:|:-------:|
-| 19      | ✅      | ✅    | ✅      |
-| 18      | ⬜      | ⬜    | ⬜      |
-| 17      | ⬜      | ⬜    | ⬜      |
-| 16      | ⬜      | ⬜    | ⬜      |
-| 15      | ⬜      | ⬜    | ⬜      |
-| 14      | ⬜      | ⬜    | ⬜      |
+| 19      | ✅      | ✅    | ⬜      |
+| 18      | ✅      | ✅    | ⬜      |
+| 17      | ✅      | ✅    | ⬜      |
+| 16      | ✅      | ✅    | ⬜      |
+| 15      | ✅      | ✅    | ⬜      |
+| 14      | ✅      | ✅    | ⬜      |
+
+Install + Tests: **all 6 series green** via the Compatibility Layer (Docker,
+2026-07-13; 14/14 tests each, 0 error). **Package** still pending for every row:
+needs `static/description/` screenshots + Apps-Store packaging + CI.
 
 A **Market Release** happens only when the full table is green.
 An **Engineering Release** needs only the 19 row.

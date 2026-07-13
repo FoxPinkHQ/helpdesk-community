@@ -1,0 +1,16 @@
+{
+  "rule_id": "R-ORM-003",
+  "pass": "TrackingPass",
+  "lifecycle": "Verified",
+  "confidence": 100,
+  "boundary": "18.0",
+  "method": "primary-source (docker image grep)",
+  "verified_in": "odoo:14.0-19.0 source",
+  "introduced_in": "19.0.1.0.1",
+  "last_validated": "2026-07-13",
+  "impact_pass": "TrackingPass",
+  "regression_risk": "low",
+  "exercised_by_golden": false,
+  "transform": "rename kwarg aggregator->group_operator for series <=17",
+  "decision": "Draft->Verified"
+}

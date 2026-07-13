@@ -1,0 +1,18 @@
+{
+  "rule_id": "R-VIEW-005",
+  "pass": "ViewPass",
+  "lifecycle": "Verified",
+  "confidence": 100,
+  "boundary": "17.0",
+  "boundary_correction": "was claimed 19.0, actually 17.0 (FA-005)",
+  "method": "primary-source (docker image grep)",
+  "verified_in": "odoo:16.0-19.0 source (ir_ui_view.py + common.rng)",
+  "introduced_in": "19.0.1.0.1",
+  "last_validated": "2026-07-13",
+  "impact_pass": "ViewPass",
+  "rule_kind": "golden-constraint-lint",
+  "regression_risk": "low",
+  "exercised_by_golden": false,
+  "related_gap": "R-VIEW-008 (attrs<->invisible domain transform for <=16, Unknown)",
+  "decision": "Draft->Verified (boundary corrected)"
+}
