@@ -1,45 +1,75 @@
-# Odoo Module Template
+# Helpdesk Community
 
-> GitHub template for creating new Odoo modules with FoxPink engineering standards.
+> Support ticket management for Odoo 19.0 — Community Edition.
 
-## Usage
+## Features
 
-1. Click **"Use this template"** → **"Create a new repository"**
-2. Name your repo `{module_name}`
-3. Clone your new repo
-4. Rename `addon/` to your module's technical name
-5. Edit `__manifest__.py` and implement your models/views
-6. Update `README.md`, `CHANGELOG.md`, and screenshots
+- Tickets with customizable pipeline (New → In Progress → Resolved → Closed)
+- Teams with agents and assignment policies
+- Categories for ticket classification
+- Customer portal — users can create and track tickets
+- Email notifications on assignment and stage changes
+- Kanban view for drag-and-drop pipeline management
+- Full search and filter by stage, team, priority, assignee
+- Three-tier access control (User / Team Leader / Manager)
 
-## Structure
+## Screenshots
 
-```
-├── addon/                  # Odoo module (rename to match your module)
-│   ├── __init__.py
-│   ├── __manifest__.py
-│   ├── models/             # Python models
-│   ├── views/              # XML views
-│   ├── security/           # Access control
-│   ├── demo/               # Demo data
-│   ├── data/               # Default data
-│   ├── wizards/            # Wizard models/views
-│   ├── tests/              # Unit tests
-│   └── static/description/ # Screenshots, icon, banner
-├── docs/                   # Module documentation
-│   ├── CHANGELOG.md
-│   ├── SUPPORT.md
-│   └── FAQ.md
-├── screenshots/            # App store screenshots
-├── .github/workflows/      # CI configuration
-└── README.md
+![Ticket Kanban](static/description/screenshot_kanban.png)
+![Ticket Form](static/description/screenshot_form.png)
+![Portal View](static/description/screenshot_portal.png)
+
+## Installation
+
+Install via Odoo App Store, or clone into your addons directory:
+
+```bash
+git clone https://github.com/FoxPinkHQ/helpdesk-community addons/helpdesk_community
 ```
 
-## Odoo 19 Notes
+Restart Odoo, activate Developer Mode, then go to Apps → Update Apps List. Search for "Helpdesk Community" and install.
 
-- Use `<list>` instead of `<tree>` in views
-- Use `<card>` instead of `<kanban-box>` in kanban views
-- Use `group_ids` instead of `groups_id` for res.groups
-- See `docs/` for full compatibility notes
+## Configuration
+
+1. Go to Helpdesk → Configuration → Stages to customize your pipeline
+2. Go to Helpdesk → Configuration → Teams to create teams and add members
+3. Go to Helpdesk → Configuration → Categories to classify tickets
+4. Default pipeline: New → In Progress → Resolved → Closed
+
+## Dependencies
+
+- `base` (always)
+- `mail` (email notifications)
+- `portal` (customer access)
+- `web` (kanban views)
+
+## Compatibility
+
+- Odoo 19.0 (Community / Enterprise)
+
+## Community vs Pro
+
+| Feature | Community | Pro |
+|---------|-----------|-----|
+| Ticket management | ✅ | ✅ |
+| Stages / Pipeline | ✅ | ✅ |
+| Teams & Assignees | ✅ | ✅ |
+| Customer Portal | ✅ | ✅ |
+| Email notifications | ✅ | ✅ |
+| SLA management | ❌ | ✅ |
+| Email gateway | ❌ | ✅ |
+| Automated actions | ❌ | ✅ |
+| Advanced reporting | ❌ | ✅ |
+| Time tracking | ❌ | ✅ |
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Support
+
+- Issues: [GitHub Issues](https://github.com/FoxPinkHQ/helpdesk-community/issues)
+- Email: aduy000@gmail.com
 
 ## License
 

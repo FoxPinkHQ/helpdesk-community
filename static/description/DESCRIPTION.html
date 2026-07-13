@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Community — FoxPink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1F2937;
+            background: #FFFFFF;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        h1 { font-size: 28px; font-weight: 700; color: #6D28D9; margin-bottom: 8px; }
+        h2 { font-size: 20px; font-weight: 600; color: #1E1B2E; margin-top: 32px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #E5E7EB; }
+        h3 { font-size: 16px; font-weight: 600; color: #1E1B2E; margin-top: 24px; margin-bottom: 8px; }
+        p { margin-bottom: 12px; color: #4B5563; }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #F8F7FC;
+            color: #6D28D9;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        ul { margin: 8px 0 16px 20px; }
+        li { margin-bottom: 6px; color: #4B5563; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .feature-card {
+            padding: 16px;
+            background: #F8F7FC;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+        }
+        .feature-card h4 { font-size: 14px; font-weight: 600; color: #6D28D9; margin-bottom: 4px; }
+        .feature-card p { font-size: 13px; color: #6B7280; margin: 0; }
+        img.screenshot {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            margin: 12px 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .compat {
+            font-size: 13px;
+            color: #059669;
+            font-weight: 500;
+        }
+        hr { border: none; border-top: 1px solid #E5E7EB; margin: 32px 0; }
+        @media (max-width: 600px) {
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Helpdesk Community</h1>
+<p><span class="badge">Odoo 19.0</span><span class="badge">Community</span><span class="badge">LGPL-3</span></p>
+<p>Full-featured helpdesk and support ticket management. Free, open-source, and production-ready.</p>
+
+<h2>Features</h2>
+<div class="feature-grid">
+    <div class="feature-card">
+        <h4>Ticket Management</h4>
+        <p>Create, assign, track, and close support tickets with ease.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Pipeline Stages</h4>
+        <p>Customizable pipeline: New → In Progress → Resolved → Closed. Drag-and-drop in kanban.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Teams & Agents</h4>
+        <p>Organize agents into teams. Assign tickets to specific team members.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Customer Portal</h4>
+        <p>Customers can create and track tickets via the portal — no agent login required.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Email Notifications</h4>
+        <p>Automatic notifications on ticket assignment and stage changes.</p>
+    </div>
+    <div class="feature-card">
+        <h4>Access Control</h4>
+        <p>Three-tier permissions: User, Team Leader, Manager. Record rules per team.</p>
+    </div>
+</div>
+
+<h2>Screenshots</h2>
+<img class="screenshot" src="screenshot_kanban.png" alt="Kanban view">
+<img class="screenshot" src="screenshot_form.png" alt="Form view">
+
+<h2>Installation</h2>
+<p>Install directly from Odoo App Store, or clone the repository into your addons directory and update the apps list.</p>
+
+<h2>Configuration</h2>
+<ol>
+    <li>Go to Helpdesk → Configuration → Stages</li>
+    <li>Go to Helpdesk → Configuration → Teams to add members</li>
+    <li>Go to Helpdesk → Configuration → Categories</li>
+    <li>Done — start creating tickets</li>
+</ol>
+
+<h2>Compatibility</h2>
+<p class="compat">✓ Odoo 19.0 Community &amp; Enterprise</p>
+<p class="compat">✓ No external services required</p>
+
+<h2>Open Core</h2>
+<p>This is the Community edition. Pro features (SLA, email gateway, automation, reporting) are available separately. Community edition is fully usable on its own — no artificial limitations.</p>
+
+<hr>
+
+<p style="font-size: 13px; color: #6B7280; text-align: center;">
+    FoxPink — Clean Odoo modules, built to last.<br>
+    <a href="https://github.com/FoxPinkHQ/helpdesk-community" style="color: #6D28D9;">GitHub</a>
+</p>
+
+</body>
+</html>
