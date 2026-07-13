@@ -17,9 +17,11 @@
 
 ## Screenshots
 
-![Ticket Kanban](static/description/screenshot_kanban.png)
-![Ticket Form](static/description/screenshot_form.png)
-![Portal View](static/description/screenshot_portal.png)
+![Ticket Kanban](helpdesk_community/static/description/screenshot_01_kanban.png)
+![Ticket Form](helpdesk_community/static/description/screenshot_02_form.png)
+![Ticket List](helpdesk_community/static/description/screenshot_03_list.png)
+![Portal — My Tickets](helpdesk_community/static/description/screenshot_06_portal_list.png)
+![Portal — Ticket Detail](helpdesk_community/static/description/screenshot_07_portal_detail.png)
 
 ## Installation
 
