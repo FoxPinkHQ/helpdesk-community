@@ -38,8 +38,8 @@ exactly one pass:
 | **Mail** `mail.thread` / activity mixin   | =  | =  | =  | =  | =  | =  | —              |
 | **View** `<list>` vs `<tree>`             | =  | =  | T  | T  | T  | T  | R-VIEW-001     |
 | View `view_mode` `list` token             | =  | =  | T  | T  | T  | T  | R-VIEW-001     |
-| Kanban `<card>` element                   | =  | =  | T  | T  | T  | T  | R-VIEW-002     |
-| Kanban `t-name="card"` vs `kanban-box`    | ?  | ?  | =  | =  | =  | =  | R-VIEW-002     |
+| Kanban body (plain `<div>`)               | =  | =  | =  | =  | =  | =  | R-VIEW-002     |
+| Kanban `t-name="card"` vs `kanban-box`    | =  | =  | T  | T  | T  | T  | R-VIEW-002     |
 | Kanban `<i class="fa">` needs `title`     | =  | =  | =  | =  | =  | =  | R-VIEW-004     |
 | Chatter arch (legacy `oe_chatter` div)    | =  | =  | =  | =  | =  | =  | R-VIEW-003     |
 | View `states` attribute                   |n/a |n/a |n/a |n/a |n/a |n/a | R-VIEW-005     |
@@ -73,7 +73,14 @@ Per ADR-001, a rule is only promoted from `?` to `=`/`T` after the transformed
 artifact **installs and passes tests** on a real Docker instance of that series.
 No release until all 6 series are green.
 
-**Status 2026-07-13:** ✅ all 6 series (14–19) install + 14/14 tests, 0 error. Every
-`=`/`T` cell above is Docker-confirmed and its rule promoted to **Stable**. The
-`kanban t-name` row is `?` on 18/19 (F-003: golden emits deprecated `kanban-box`;
-works, cosmetic warning). `n/a` rows await an exercising module.
+**Status 2026-07-13 (golden `19.0.1.0.2`):** ✅ all 6 series (14–19) install +
+14/14 tests, 0 error. Every `=`/`T` cell above is Docker-confirmed and its rule
+promoted to **Stable**. The `kanban t-name` row is now fully resolved: golden emits
+`t-name="card"` (required on 19, accepted on 18), and the compiler renames it to
+`kanban-box` for ≤17 — **F-003 was a HARD render error on 19, not a cosmetic warning
+(see FA-006)**. `n/a` rows await an exercising module.
+
+> **Gate correction (FA-006):** install + tests are necessary but not sufficient —
+> they never render a view in a browser. F-003 / view_mode / portal-ACL failures
+> were invisible to the suite and only caught by a browser render smoke. The release
+> gate now requires **render-smoke** (Playwright) in addition to install+tests.

@@ -140,17 +140,33 @@ rule came from when a future Odoo series breaks it.
   `odoo/upgrade_code/17.5-01-tree-to-list.py`.
 - **promote-to-stable:** transformed list view renders on Docker 17.
 
-### R-VIEW-002 — kanban card template
+### R-VIEW-002 — kanban card template name  ★ HARD ERROR, boundary corrected (F-003)
 - **lifecycle:** Stable · **confidence:** 100% · Docker-green 14–19 (2026-07-13)
-- **applies_to:** 17.0, 16.0, 15.0, 14.0
-- **trigger:** `<card …>` element inside `<templates>`; template name `card`/`kanban-card`.
-- **transform:** for ≤17 replace `<card>` with `<div class="oe_kanban_card">…</div>`
-  and set template name to `kanban-box`.
-- **evidence:** `kanban-box` deprecated for `kanban-card` in 18.0 (odoo/odoo);
-  docs commit renames `kanban-card` → `card` in 19.0.
-- **residual 10%:** exact inner-attribute mapping on `<div>` per series unconfirmed.
-- **promote-to-stable:** kanban renders on Docker 17.
-- **note:** align golden to `t-name="card"` + `<card>` so this stays 1 clean transform.
+- **applies_to:** 17.0, 16.0, 15.0, 14.0  (**boundary: target < 18.0**)
+- **golden form (19.0):** `<t t-name="card">` wrapping a plain `<div>` body.
+  Canonical 19 uses **0 `<card>` elements** — the body is ordinary `<div>`s; only the
+  *template name* changes across series, never the body.
+- **transform (≤17.0):** rename `<t t-name="card">` → `<t t-name="kanban-box">`.
+  No element/body transform (plain `<div>` is valid on all series 14–19).
+- **evidence (primary source, `web/.../kanban/kanban_arch_parser.js`, all series read):**
+  | series | parser lookup | behaviour if `card` template absent |
+  | ------ | ------------- | ----------------------------------- |
+  | 14–17 | `templateDocs["kanban-box"]` | throws `Missing 'kanban-box' template` |
+  | 18.0  | `templateDocs["card"]` → fallback `kanban-box` | warns `'kanban-box' is deprecated`, then works |
+  | 19.0  | `templateDocs["card"]` | throws `Missing 'card' template` |
+  So `card` is a **hard requirement** on 19, a **hard failure** on ≤17, and 18
+  accepts **both**. Boundary for the rename is **target < 18.0**.
+- **golden-bug found (F-003):** golden previously used `t-name="kanban-box"`, which
+  raises OwlError `Missing 'card' template` on 19 — the module's kanban view would
+  not render at all on the canonical series. This is a **HARD render error, not
+  cosmetic**. The 14-test suite MISSED it entirely because **tests never render a
+  view in a browser** (install + ORM tests only). Fixed golden → `t-name="card"`;
+  harness renames back to `kanban-box` for <18. See FA-006 (render-gap lesson).
+- **promoted-to-stable:** ✅ card form renders on live Docker 19 (screenshot capture);
+  renamed kanban-box form installs + 14 tests green on Docker 17/16/15/14; 18 accepts
+  card as-is (14 tests green).
+- **provenance:** introduced_in `19.0.1.0.2` · verified_in source(14–19) +
+  Docker 14–19 · last_validated 2026-07-13
 
 ### R-VIEW-003 — chatter arch
 - **lifecycle:** Stable · **confidence:** 100% · Docker-green 14–19 (2026-07-13)

@@ -30,8 +30,8 @@
                                 </a>
                             </td>
                             <td><t t-esc="ticket.name"/></td>
-                            <td><t t-esc="ticket.stage_id.name"/></td>
-                            <td><t t-esc="ticket.create_date"/></td>
+                            <td><span class="badge rounded-pill text-bg-info"><t t-esc="ticket.stage_id.name"/></span></td>
+                            <td><span t-field="ticket.create_date" t-options='{"widget": "date"}'/></td>
                         </tr>
                     </tbody>
                 </table>
@@ -104,7 +104,8 @@
                     <div class="col-md-8">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <t t-esc="ticket.description or 'No description provided.'"/>
+                                <div t-if="ticket.description" t-out="ticket.description"/>
+                                <p t-else="" class="text-muted">No description provided.</p>
                             </div>
                         </div>
                     </div>
@@ -113,11 +114,11 @@
                             <div class="card-body">
                                 <dl>
                                     <dt>Status</dt>
-                                    <dd><t t-esc="ticket.stage_id.name"/></dd>
+                                    <dd><span class="badge rounded-pill text-bg-info"><t t-esc="ticket.stage_id.name"/></span></dd>
                                     <dt>Priority</dt>
-                                    <dd><t t-esc="ticket.priority"/></dd>
+                                    <dd class="text-capitalize"><t t-esc="ticket.priority"/></dd>
                                     <dt>Created</dt>
-                                    <dd><t t-esc="ticket.create_date"/></dd>
+                                    <dd><span t-field="ticket.create_date" t-options='{"widget": "date"}'/></dd>
                                 </dl>
                             </div>
                         </div>

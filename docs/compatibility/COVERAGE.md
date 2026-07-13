@@ -75,8 +75,10 @@ rules it actually fires:
 | Golden install + 14 tests green | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | R-ORM-002 (group_expand)        | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | F-001 (view groups= resolves)   | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| R-VIEW-001/002 (list/card)      | =  | =  | ✅ | ✅ | ✅ | ✅ |
+| R-VIEW-001 (list→tree)          | =  | =  | ✅ | ✅ | ✅ | ✅ |
+| R-VIEW-002 (t-name card→box)    | ✅ | =  | ✅ | ✅ | ✅ | ✅ |
 | R-TEST-001 (Savepoint on 14)    | =  | =  | =  | =  | =  | ✅ |
+| Render smoke (kanban/list/form/portal) | ✅ | ?  | ?  | ?  | ?  | ?  |
 
 **✅ ALL SIX SERIES GREEN (14–19): install + 14/14 tests, 0 error.** (`=` = identity,
 rule not required on that series.)
@@ -88,12 +90,23 @@ rule not required on that series.)
   0 error** on every series. 17→14 exercise R-ORM-002 (4-arg + `test_12` call-site
   rewrite); 14 additionally exercises **R-TEST-001** (`TransactionCase`→
   `SavepointCase`, discovered here).
-- Golden = **19.0.1.0.1** (Engineering release). Docker validation (Phase 1.5B)
-  complete → exercised rules promoted to **Stable**.
-- **F-003 (golden-quality, non-blocking):** Docker 18 logs `'kanban-box' is
-  deprecated, define a 'card' template instead` — golden kanban still uses
-  `t-name="kanban-box"`. Works (0 error) but golden should move to `t-name="card"`
-  with the compiler emitting `kanban-box` for ≤17 (extends R-VIEW-002). Deferred.
+- 2026-07-13: Re-validated after the golden bug fixes (F-003, view_mode, portal
+  ACL, portal QWeb) on golden **19.0.1.0.2** — Docker **14/15/16/17/18** each
+  rebuilt via `build_version.ps1` and `--test-tags=/helpdesk_community`: **0 failed,
+  0 error(s) of 14 tests** on every series. R-VIEW-002 rename (card→kanban-box)
+  confirmed on 17/16/15/14; card accepted as-is on 18.
+- Golden = **19.0.1.0.2** (Engineering release). Phase 1.5 Docker validation +
+  Phase 2A golden bug fixes complete → exercised rules re-confirmed **Stable**.
+- **F-003 (was mislabeled "non-blocking" — actually a HARD render error):** golden
+  kanban used `t-name="kanban-box"`, which throws OwlError `Missing 'card' template`
+  on 19 → kanban does not render. Fixed golden → `t-name="card"`; compiler renames
+  to `kanban-box` for ≤17 (R-VIEW-002, boundary <18). **Only caught by browser
+  render, not by tests — see FA-006.** Also fixed same round: `view_mode
+  tree,form`→`list,form` (×3 actions, tree view type removed on 19) and 3 missing
+  `base.group_portal` ACLs (portal 403). All render clean on live 19.
+- **Render-smoke backfill (14–16, 18):** open follow-up — install+tests are green
+  on all 6 series, but browser render smoke is so far only done on 19 (screenshots)
+  and Docker-install-confirmed (not browser-rendered) on 14–18. Marked `?` above.
 
 ## Open findings (surfaced during verification, NOT compatibility rules)
 

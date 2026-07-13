@@ -78,3 +78,30 @@
 - **Replacement:** R-VIEW-005 re-verified with boundary **17.0**. Also surfaced
   the real transform gap **R-VIEW-008** (rewrite 17+ `invisible` domains back to
   legacy `attrs` for ≤16) — kept Draft (Unknown) rather than guessed.
+
+## FA-006 — "install + tests passing means the module is correct on that series"  ★ process gap
+
+- **Assumption:** a green `-i module --test-enable` run on a series proves the
+  module works on that series. The 14-test suite passed 14/14 on all 6 series, so
+  the golden was declared correct.
+- **Evidence:** capturing store screenshots on the **canonical 19** live instance
+  immediately hit three hard failures the test suite never saw:
+  - **F-003** — kanban `t-name="kanban-box"` throws OwlError `Missing 'card'
+    template` on 19 → the kanban view does not render at all (see R-VIEW-002).
+  - **F-viewmode** — `view_mode="tree,form"` invalid on 19 (`tree` view type
+    removed → `list`); 3 config actions failed to open.
+  - **F-portal** — `base.group_portal` had a record rule but **no
+    `ir.model.access.csv` ACL** → portal users got 403 Forbidden on their own
+    tickets.
+- **Result:** FALSE. Install + ORM tests are necessary but **not sufficient**.
+- **Why wrong:** Odoo's test framework loads and validates the *registry and data*
+  but **never renders a view in a browser**. View-layer regressions (kanban
+  template name, `view_mode` view types, missing frontend ACLs, portal QWeb) are
+  invisible to `TransactionCase`/`HttpCase`-free suites. "Green tests" measured
+  the wrong surface.
+- **Replacement:** the release gate now requires a **render-smoke** step in
+  addition to install+tests — load each primary view (kanban/list/form/search),
+  each menu action, and the customer portal in a real browser (Playwright) before
+  a series is called green. The 19 screenshot capture doubles as the 19 render
+  smoke; F-003's `kanban-box→card` rename was Docker-render-confirmed on 17 (and
+  card-as-is on 18). Backfill render-smoke for 14–16 is tracked as a follow-up.

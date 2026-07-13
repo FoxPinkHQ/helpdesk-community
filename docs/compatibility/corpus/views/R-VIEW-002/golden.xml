@@ -1,11 +1,13 @@
-<!-- R-VIEW-002 golden (19.0): kanban uses <card> element (t-name="card" canonical) -->
+<!-- R-VIEW-002 golden (19.0): t-name="card" wrapping a plain <div> body.
+     Canonical 19 uses 0 <card> elements; only the template NAME changes per
+     series. Transform to <=17 is the single rename card -> kanban-box. -->
 <kanban class="o_helpdesk_kanban" default_group_by="stage_id">
     <field name="name"/>
     <templates>
         <t t-name="card">
-            <card class="oe_kanban_card">
+            <div class="oe_kanban_card">
                 <field name="name"/>
-            </card>
+            </div>
         </t>
     </templates>
 </kanban>

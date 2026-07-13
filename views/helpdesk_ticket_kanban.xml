@@ -14,8 +14,8 @@
                 <field name="category_id"/>
                 <field name="last_activity_date"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <card class="oe_kanban_card">
+                    <t t-name="card">
+                        <div class="oe_kanban_card">
                             <div class="o_kanban_card_content">
                                 <div class="o_kanban_card_header">
                                     <field name="priority" widget="priority"/>
@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </card>
+                        </div>
                     </t>
                 </templates>
             </kanban>

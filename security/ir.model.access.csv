@@ -11,3 +11,6 @@ access_helpdesk_team_manager,helpdesk.team.manager,model_helpdesk_team,group_hel
 access_helpdesk_category_user,helpdesk.category.user,model_helpdesk_category,group_helpdesk_user,1,0,0,0
 access_helpdesk_category_team_leader,helpdesk.category.team_leader,model_helpdesk_category,group_helpdesk_team_leader,1,1,1,0
 access_helpdesk_category_manager,helpdesk.category.manager,model_helpdesk_category,group_helpdesk_manager,1,1,1,1
+access_helpdesk_ticket_portal,helpdesk.ticket.portal,model_helpdesk_ticket,base.group_portal,1,0,1,0
+access_helpdesk_category_portal,helpdesk.category.portal,model_helpdesk_category,base.group_portal,1,0,0,0
+access_helpdesk_stage_portal,helpdesk.stage.portal,model_helpdesk_stage,base.group_portal,1,0,0,0

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Community — FoxPink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 15px; line-height: 1.65; color: #1F2937; background: #FFFFFF; max-width: 960px; margin: 0 auto; padding: 0 24px 48px; }
+        .hero { text-align: center; padding: 40px 0 8px; }
+        .hero img { width: 100%; border-radius: 14px; box-shadow: 0 10px 40px rgba(76,29,149,.25); }
+        h1 { font-size: 30px; font-weight: 800; color: #6D28D9; margin: 28px 0 6px; letter-spacing: -.5px; }
+        h2 { font-size: 22px; font-weight: 700; color: #1E1B2E; margin-top: 40px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid #EDE9FE; }
+        h3 { font-size: 16px; font-weight: 600; color: #1E1B2E; margin-top: 22px; margin-bottom: 6px; }
+        p { margin-bottom: 12px; color: #4B5563; }
+        .lead { font-size: 17px; color: #374151; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; background: #F5F3FF; color: #6D28D9; margin: 2px 4px 2px 0; }
+        ul { margin: 8px 0 16px 22px; } li { margin-bottom: 6px; color: #4B5563; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+        .card { padding: 18px; background: #FAFAF9; border-radius: 10px; border: 1px solid #EDE9FE; }
+        .card h4 { font-size: 15px; font-weight: 700; color: #6D28D9; margin-bottom: 4px; }
+        .card p { font-size: 13.5px; color: #6B7280; margin: 0; }
+        .shot { width: 100%; border-radius: 10px; border: 1px solid #E5E7EB; margin: 10px 0 6px; box-shadow: 0 6px 22px rgba(0,0,0,.10); }
+        .shot-cap { font-size: 13px; color: #9CA3AF; text-align: center; margin-bottom: 22px; }
+        table.matrix { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+        table.matrix th, table.matrix td { padding: 10px 14px; border: 1px solid #E5E7EB; text-align: center; }
+        table.matrix th { background: #6D28D9; color: #fff; font-weight: 600; }
+        table.matrix td.ok { color: #059669; font-weight: 700; font-size: 17px; }
+        .callout { background: linear-gradient(135deg,#F5F3FF,#EDE9FE); border-left: 4px solid #7C3AED; padding: 16px 20px; border-radius: 8px; margin: 18px 0; }
+        .callout strong { color: #4C1D95; }
+        hr { border: none; border-top: 1px solid #E5E7EB; margin: 36px 0; }
+        .foot { font-size: 13px; color: #6B7280; text-align: center; }
+        .foot a { color: #6D28D9; text-decoration: none; }
+        @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <img src="banner.png" alt="Helpdesk Community by FoxPink"/>
+</div>
+
+<h1>Helpdesk Community</h1>
+<p>
+    <span class="badge">Odoo 14 → 19</span>
+    <span class="badge">Community &amp; Enterprise</span>
+    <span class="badge">LGPL-3 · Free</span>
+    <span class="badge">No external services</span>
+</p>
+<p class="lead">A complete, open-source support desk for Odoo — tickets, teams, pipeline stages, and a self-service customer portal. Production-ready and free, with zero artificial limits.</p>
+
+<h2>The problem</h2>
+<p>Support requests arrive by email, chat, and phone — and quietly get lost. Without a single place to track them, tickets slip through the cracks, customers repeat themselves, and your team has no idea what's actually pending. Most Odoo helpdesk options are either paid, locked to one Odoo version, or bloated with features you'll never use.</p>
+
+<h2>The solution</h2>
+<p>Helpdesk Community gives every request a home. Capture tickets, route them to the right team, move them through a clear pipeline, and let customers follow their own tickets through the portal — all inside Odoo, with no subscription and no third-party service. One clean module that runs on <strong>six Odoo versions (14 through 19)</strong>.</p>
+
+<h2>Key features</h2>
+<div class="grid">
+    <div class="card"><h4>Ticket management</h4><p>Create, assign, prioritize, and resolve tickets with full chatter history and activity tracking.</p></div>
+    <div class="card"><h4>Kanban pipeline</h4><p>Drag-and-drop tickets across customizable stages: New → In Progress → Resolved → Closed.</p></div>
+    <div class="card"><h4>Teams &amp; agents</h4><p>Group agents into teams and route tickets to the right people with per-team record rules.</p></div>
+    <div class="card"><h4>Customer portal</h4><p>Customers submit and track their own tickets — no agent login, no back-and-forth email.</p></div>
+    <div class="card"><h4>Categories</h4><p>Classify tickets (Bug, Feature, Billing, General) for faster triage and cleaner reporting.</p></div>
+    <div class="card"><h4>Email notifications</h4><p>Automatic messages on assignment and stage changes via native Odoo mail templates.</p></div>
+    <div class="card"><h4>Access control</h4><p>Three roles — User, Team Leader, Manager — with sensible defaults out of the box.</p></div>
+    <div class="card"><h4>Search &amp; filters</h4><p>Group and filter by stage, team, priority, or category to find anything in seconds.</p></div>
+</div>
+
+<h2>Screenshots</h2>
+
+<img class="shot" src="screenshot_01_kanban.png" alt="Kanban pipeline"/>
+<p class="shot-cap">Kanban pipeline — drag tickets across stages, color-coded by priority.</p>
+
+<img class="shot" src="screenshot_02_form.png" alt="Ticket form"/>
+<p class="shot-cap">Ticket form — everything about a request in one place, with chatter and activities.</p>
+
+<img class="shot" src="screenshot_03_list.png" alt="Ticket list"/>
+<p class="shot-cap">List view — scan and bulk-manage tickets with sortable columns.</p>
+
+<img class="shot" src="screenshot_08_search.png" alt="Search and filters"/>
+<p class="shot-cap">Powerful search — filter and group by stage, team, priority, or category.</p>
+
+<img class="shot" src="screenshot_04_teams.png" alt="Team management"/>
+<p class="shot-cap">Teams — organize agents and assign ticket ownership.</p>
+
+<img class="shot" src="screenshot_05_stages.png" alt="Stage configuration"/>
+<p class="shot-cap">Stages — tailor your support pipeline to how your team works.</p>
+
+<img class="shot" src="screenshot_06_portal_list.png" alt="Customer portal ticket list"/>
+<p class="shot-cap">Customer portal — customers see all their tickets and statuses at a glance.</p>
+
+<img class="shot" src="screenshot_07_portal_detail.png" alt="Customer portal ticket detail"/>
+<p class="shot-cap">Portal detail — customers follow progress without contacting an agent.</p>
+
+<h2>Compatibility</h2>
+<div class="callout">
+    <strong>One module. Six Odoo versions.</strong> Every release is built and tested on the full Odoo range — a level of coverage most helpdesk modules simply don't offer.
+</div>
+<table class="matrix">
+    <tr><th>Odoo</th><th>19.0</th><th>18.0</th><th>17.0</th><th>16.0</th><th>15.0</th><th>14.0</th></tr>
+    <tr><td>Status</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td></tr>
+</table>
+<ul>
+    <li>Community &amp; Enterprise editions</li>
+    <li>No external API keys or paid services required</li>
+    <li>Depends only on standard Odoo modules: <em>base, mail, portal, web</em></li>
+</ul>
+
+<h2>Support</h2>
+<p>Helpdesk Community is actively maintained by FoxPink. Found a bug or have a question?</p>
+<ul>
+    <li>Issues &amp; source: <a href="https://github.com/FoxPinkHQ/helpdesk-community">github.com/FoxPinkHQ/helpdesk-community</a></li>
+    <li>License: LGPL-3 — free to use, modify, and distribute</li>
+</ul>
+
+<h2>Roadmap</h2>
+<p>Community edition is fully usable on its own, with no artificial limitations. Planned and Pro-tier additions:</p>
+<ul>
+    <li>SLA policies &amp; deadline tracking</li>
+    <li>Email gateway (create tickets straight from inbound mail)</li>
+    <li>Automation rules &amp; auto-assignment</li>
+    <li>Reporting dashboards &amp; KPIs</li>
+</ul>
+
+<hr>
+<p class="foot">
+    <strong>FoxPink</strong> — Clean Odoo modules, built to last.<br>
+    <a href="https://github.com/FoxPinkHQ/helpdesk-community">GitHub</a> · LGPL-3
+</p>
+
+</body>
+</html>
