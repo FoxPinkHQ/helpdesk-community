@@ -1,0 +1,132 @@
+from odoo.tests import common, tagged
+from odoo import fields
+
+
+@tagged('-at_install', 'post_install')
+class TestHelpdeskModels(common.TransactionCase):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.Stage = cls.env['helpdesk.stage']
+        cls.Team = cls.env['helpdesk.team']
+        cls.Category = cls.env['helpdesk.category']
+        cls.Ticket = cls.env['helpdesk.ticket']
+
+        # Create default stages
+        cls.stage_new = cls.Stage.create({
+            'name': 'New', 'sequence': 10, 'is_start': True})
+        cls.stage_ip = cls.Stage.create({
+            'name': 'In Progress', 'sequence': 20})
+        cls.stage_done = cls.Stage.create({
+            'name': 'Closed', 'sequence': 30, 'is_done': True, 'fold': True})
+
+        # Create team
+        cls.team = cls.Team.create({
+            'name': 'Support',
+            'member_ids': [(6, 0, [cls.env.user.id])],
+        })
+
+        # Create category
+        cls.category = cls.Category.create({
+            'name': 'Bug Report',
+            'team_id': cls.team.id,
+            'color': 1,
+        })
+
+    def test_01_create_ticket(self):
+        ticket = self.Ticket.create({
+            'name': 'Test ticket subject',
+        })
+        self.assertTrue(ticket.ticket_number)
+        self.assertTrue(ticket.ticket_number.startswith('HD'))
+        self.assertEqual(ticket.stage_id, self.stage_new)
+        self.assertTrue(ticket.stage_change_date)
+
+    def test_02_ticket_workflow(self):
+        ticket = self.Ticket.create({
+            'name': 'Workflow test',
+        })
+        ticket.write({'stage_id': self.stage_ip.id})
+        self.assertEqual(ticket.stage_id, self.stage_ip)
+        self.assertFalse(ticket.close_date)
+
+        ticket.write({'stage_id': self.stage_done.id})
+        self.assertTrue(ticket.close_date)
+        self.assertTrue(ticket.stage_change_date)
+
+    def test_03_ticket_priority(self):
+        ticket = self.Ticket.create({
+            'name': 'Priority test',
+            'priority': 'urgent',
+        })
+        self.assertEqual(ticket.priority, 'urgent')
+
+    def test_04_ticket_assign(self):
+        ticket = self.Ticket.create({
+            'name': 'Assign test',
+            'team_id': self.team.id,
+            'user_id': self.env.user.id,
+        })
+        self.assertEqual(ticket.team_id, self.team)
+        self.assertEqual(ticket.user_id, self.env.user)
+
+    def test_05_ticket_category(self):
+        ticket = self.Ticket.create({
+            'name': 'Category test',
+            'category_id': self.category.id,
+        })
+        self.assertEqual(ticket.category_id, self.category)
+
+    def test_06_start_stage_default(self):
+        ticket = self.Ticket.create({
+            'name': 'Default stage test',
+        })
+        self.assertEqual(ticket.stage_id, self.stage_new)
+
+    def test_07_stage_creation(self):
+        stage = self.Stage.create({
+            'name': 'Test Stage',
+            'sequence': 50,
+            'is_start': False,
+            'is_done': True,
+        })
+        self.assertEqual(stage.name, 'Test Stage')
+        self.assertTrue(stage.is_done)
+
+    def test_08_team_creation(self):
+        team = self.Team.create({
+            'name': 'Test Team',
+            'assignment_policy': 'round_robin',
+        })
+        self.assertEqual(team.assignment_policy, 'round_robin')
+
+    def test_09_category_creation(self):
+        category = self.Category.create({
+            'name': 'Test Category',
+            'team_id': self.team.id,
+            'sequence': 5,
+        })
+        self.assertEqual(category.sequence, 5)
+
+    def test_10_ticket_archive(self):
+        ticket = self.Ticket.create({
+            'name': 'Archive test',
+        })
+        self.assertTrue(ticket.active)
+        ticket.toggle_active()
+        self.assertFalse(ticket.active)
+
+    def test_11_ticket_unlink(self):
+        ticket = self.Ticket.create({
+            'name': 'Delete test',
+        })
+        tid = ticket.id
+        ticket.unlink()
+        self.assertFalse(self.Ticket.search([('id', '=', tid)]))
+
+    def test_12_read_group_stage_ids(self):
+        stages = self.Ticket._read_group_stage_ids(
+            self.Stage, [], 'sequence')
+        self.assertIn(self.stage_new, stages)
+        self.assertIn(self.stage_ip, stages)

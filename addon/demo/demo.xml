@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="demo_your_model_1" model="your.model">
-        <field name="name">Sample Record</field>
-        <field name="description">This is a demo record.</field>
-    </record>
-</odoo>
