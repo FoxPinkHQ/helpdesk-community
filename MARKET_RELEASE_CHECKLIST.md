@@ -13,13 +13,13 @@
 
 ## Module: `helpdesk_community`
 
-- **Version:** 19.0.1.0.2
+- **Version:** 19.0.1.0.4
 - **Canonical series:** 19.0 (ADR-001)
 - **Supported series:** 14.0, 15.0, 16.0, 17.0, 18.0, 19.0
 - **Publisher:** FoxPink
 - **Support email:** aduy000@gmail.com
 - **Repo:** https://github.com/FoxPinkHQ/helpdesk-community
-- **HEAD at release candidate:** `aac5aa9`
+- **Quality tiers (ADR-003):** Build + Render = all series 14–19; Behavior = canonical 19.0 (full UAT) + portable model-level shell assertions on a legacy series
 
 ### 1. Install (Docker `odoo:<v>` + `-i module`)
 - [x] Install 14.0
@@ -37,31 +37,38 @@
 - [x] Tests green 18.0
 - [x] Tests green 19.0
 
-### 3. Render Smoke (Playwright paint check — kanban/list/form/menus/portal, 0 OwlError)
-- [x] Render smoke 14.0
-- [x] Render smoke 15.0
-- [x] Render smoke 16.0  *(FA-007 fixed: duplicate `stage_id` statusbar crash)*
-- [x] Render smoke 17.0
-- [x] Render smoke 18.0
+### 3. Render Smoke (Playwright paint check — kanban/list/form/menus/portal, 0 OwlError) — ADR-003 Render tier, ALL series
+- [x] Render smoke 14.0  *(1.0.4: jinja mail templates via R-MAIL-001)*
+- [x] Render smoke 15.0  *(1.0.4)*
+- [x] Render smoke 16.0  *(FA-007 fixed: duplicate `stage_id` statusbar crash; 1.0.4 re-verified)*
+- [x] Render smoke 17.0  *(1.0.4)*
+- [x] Render smoke 18.0  *(1.0.4)*
 - [x] Render smoke 19.0  *(doubles as the live screenshot capture)*
 
+### 3b. Behavior (ADR-003 Behavior tier — real user actions; canonical 19.0 + portable shell)
+- [x] Action UAT 19.0 — 18/18 (CRUD stage/team/category, ticket lifecycle assign/close/reopen/stage, list+filter+groupby, portal create), 0 JS/RPC error
+- [x] Overflow-proof UAT 19.0 — 57/57 (all views + popups + portal @ 1920/1440/1366/1024/768, `scrollWidth==innerWidth`)
+- [x] Portable model-level assertions (Bug A color-int write, Bug D default stage) — `odoo shell`, verified 16.0
+- [x] Bugs A–E + mail-template rendering fixed and recorded in `docs/compatibility/AUTHORING_PITFALLS.md`
+
 ### 4. Compatibility Layer
-- [x] Transforms verified on 14–19 (RULES.md, all exercised rules Stable)
+- [x] Transforms verified on 14–19 (RULES.md, all exercised rules Stable incl. R-MAIL-001)
 - [x] Version matrix documented (docs/compatibility/MATRIX.md)
 - [x] Known false assumptions recorded (FA-001 … FA-007)
+- [x] Authoring pitfalls recorded (AP-001 … AP-006, `docs/compatibility/AUTHORING_PITFALLS.md`)
 
 ### 5. Package — SIX independent artifacts (FoxPink releases by artifact, not by branch)
 > The Compiler's final output is 6 validated ZIPs, one per series, produced by
 > `build_market_release.ps1` (build_version → package_module ×6) into
 > `dist/<series>/` with a `dist/market-release.json` manifest (sha256 + size).
-- [x] Odoo 14 artifact — `dist/14.0/helpdesk_community-14.0.1.0.2.zip`
-- [x] Odoo 15 artifact — `dist/15.0/helpdesk_community-15.0.1.0.2.zip`
-- [x] Odoo 16 artifact — `dist/16.0/helpdesk_community-16.0.1.0.2.zip`
-- [x] Odoo 17 artifact — `dist/17.0/helpdesk_community-17.0.1.0.2.zip`
-- [x] Odoo 18 artifact — `dist/18.0/helpdesk_community-18.0.1.0.2.zip`
-- [x] Odoo 19 artifact — `dist/19.0/helpdesk_community-19.0.1.0.2.zip`
+- [x] Odoo 14 artifact — `dist/14.0/helpdesk_community-14.0.1.0.4.zip`
+- [x] Odoo 15 artifact — `dist/15.0/helpdesk_community-15.0.1.0.4.zip`
+- [x] Odoo 16 artifact — `dist/16.0/helpdesk_community-16.0.1.0.4.zip`
+- [x] Odoo 17 artifact — `dist/17.0/helpdesk_community-17.0.1.0.4.zip`
+- [x] Odoo 18 artifact — `dist/18.0/helpdesk_community-18.0.1.0.4.zip`
+- [x] Odoo 19 artifact — `dist/19.0/helpdesk_community-19.0.1.0.4.zip`
 - [x] 6 ZIP validated (forward-slash entries, manifest keys, license, icon, junk sweep)
-- [x] 6 manifest version prefixes correct (`<series>.1.0.2`, fail-closed assert)
+- [x] 6 manifest version prefixes correct (`<series>.1.0.4`, fail-closed assert)
 - [x] `dist/market-release.json` emitted (`validated: true`, 6 sha256)
 
 ### 6. Store Assets
@@ -88,7 +95,7 @@
 - [ ] Push `.github/workflows/ci.yml`
 - [ ] CI green badge on README
 - [ ] Auto test matrix 14–19 wired
-- [ ] Engineering tag `19.0.1.0.2` (git tag + GitHub Release)
+- [ ] Engineering tag `19.0.1.0.4` (git tag + GitHub Release)
 - [ ] Mark first **FoxPink Market Release** once Store-approved
 
 ---

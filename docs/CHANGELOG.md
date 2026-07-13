@@ -4,6 +4,47 @@ All notable changes to this module are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [19.0.1.0.4] - 2026-07-13
+
+### Fixed
+- **Bug A (RPC_ERROR on save)**: `helpdesk.category` used `widget="color"` on an
+  `Integer` field, so the picker returned a hex string (`#e90707`) and the write
+  crashed with `ValueError: invalid literal for int() with base 10`. Switched to
+  `widget="color_picker"` (Integer-compatible). Verified: category create + set
+  color + save raises zero RPC errors.
+- **Bug D (new ticket not saveable / stat buttons inert)**: `stage_id` was
+  `required=True` with no client-side default, so a brand-new ticket form stayed
+  permanently dirty — Save was silently blocked by inline validation and stat
+  buttons (e.g. *Assign to me*) became no-ops. Added a `default` (`is_start`
+  stage, else first stage) mirroring the server-side `create()` default. New
+  tickets now save clean.
+- **Bug B (Assign to me)**: confirmed fixed — with Bug D resolved, the
+  *Assign to me* stat button now sets `user_id` to the current user (was inert
+  because the form could not save).
+- **Bug C (portal cannot create tickets)**: the `/my/ticket/create` form POSTed
+  to a CSRF-protected `type="http"` route without a token, so every submit
+  returned **400 Bad Request**. Added the `csrf_token` hidden input; portal
+  submit now creates the ticket and redirects to `/my/ticket/<id>`.
+- **Bug E (raw filter labels)**: the `my_tickets` / `unassigned` search filters
+  had no `string`, so Odoo 19 rendered their technical names. Added
+  `string="My Tickets"` / `string="Unassigned"`.
+- **Mail templates**: rewrote `data/mail_templates.xml` to correct modern
+  rendering (QWeb `t-out`/`t-if` body + `{{ }}` inline_template char fields);
+  the previous mix of `{{ }}` and legacy `${ }` rendered incorrectly. Templates
+  are dormant (not sent by any code path) so no runtime bug existed, but they are
+  now render-correct.
+- **R-MAIL-001** (Compatibility Layer): for Odoo 14.0 the mail templates are
+  emitted in the legacy jinja idiom (`${ }` + `% if %`), since jinja was replaced
+  by qweb/inline_template in 15.0. Docker-smoke-verified on 14.0.
+
+### Verified
+- Real-user-action UAT (Playwright): 18/18 — CRUD for stage/team/category, full
+  ticket lifecycle (create/assign/statusbar/close/reopen), list + search filters
+  + group-by, and portal create — all pass with zero JS/RPC errors.
+- Overflow-proof UAT: 57/57 — every backend view, popup (color picker, search
+  panel) and portal page at 1920/1440/1366/1024/768; `scrollWidth == innerWidth`
+  everywhere (no document horizontal overflow), zero JS/RPC errors.
+
 ## [19.0.1.0.3] - 2026-07-13
 
 ### Fixed
