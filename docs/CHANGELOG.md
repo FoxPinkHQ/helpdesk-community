@@ -4,6 +4,46 @@ All notable changes to this module are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [19.0.1.0.3] - 2026-07-13
+
+### Fixed
+- **FA-008**: on Odoo 18.0/19.0 the ticket form overflowed past the viewport
+  (>100vw, horizontal scrollbar). The form used the legacy
+  `<div class="oe_chatter">` chatter markup, which 18.0+ no longer treat as the
+  chatter aside; it became a plain flex child that consumed the full width
+  (measured: chatter 1408px, sheet squeezed to 34px at `left=-33`, statusbar
+  off-canvas). Replaced with the modern `<chatter/>` tag, which mounts the OWL
+  chatter as a proper side aside (sheet 886px + chatter 530px @ 1440;
+  `docScrollWidth == innerWidth`, zero overflow verified at 1440/1366/1024/768).
+- **R-VIEW-003** (Compatibility Layer): for Odoo <= 17.0 the `<chatter/>` tag is
+  transformed back to the legacy `<div class="oe_chatter">` idiom (still the
+  endorsed markup through saas-17.4), preserving correct layout across 14.0-17.0.
+
+## [19.0.1.0.2] - 2026-07-13
+
+### Fixed
+- **FA-007**: the Odoo 16.0 ticket form crashed on open. The form declared
+  `stage_id` twice (a statusbar in the header plus a redundant plain field in a
+  group); Odoo 16's statusbar preloader then failed in
+  `StatusBarField.getVisibleMany2Ones` (`.map` of undefined). The redundant group
+  field was removed so the header statusbar is the single stage widget in the
+  form. Rendering verified on 14.0-19.0.
+
+### Added
+- **ADR-002**: a render-smoke gate (headless paint check of kanban/list/form,
+  asserting zero uncaught OwlError) between the test and packaging stages, run on
+  all six Odoo series.
+- English Apps Store listing (`static/description/index.html`) with Overview,
+  Installation, Open Core, Compatibility and nine captioned screenshots
+  (STORE-004).
+
+### Changed
+- **STORE-001**: the module now lives in a valid-name subfolder
+  (`helpdesk_community/`); the repository root holds documentation and release
+  metadata. Distribution is release-by-artifact: six independently validated
+  ZIPs, one per Odoo series (14.0-19.0), each carrying its matching manifest
+  version prefix.
+
 ## [19.0.1.0.1] — 2026-07-13
 
 ### Fixed
