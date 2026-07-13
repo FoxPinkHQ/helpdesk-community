@@ -25,7 +25,7 @@
                             <field name="team_id"/>
                         </group>
                         <group>
-                            <field name="color" widget="color"/>
+                            <field name="color" widget="color_picker"/>
                             <field name="sequence"/>
                             <field name="active"/>
                         </group>

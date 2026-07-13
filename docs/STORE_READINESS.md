@@ -1,4 +1,4 @@
-# Store Readiness — helpdesk_community (release 1.0.3)
+# Store Readiness — helpdesk_community (release 1.0.4)
 
 Report date: 2026-07-13
 Repo: `git@github.com:FoxPinkHQ/helpdesk-community.git`
@@ -33,12 +33,12 @@ Each branch is a **compiled artifact** produced by the Compatibility Layer
 
 | Branch | Module folder | Manifest version | list-tag | kanban | chatter | Transforms |
 |--------|---------------|------------------|----------|--------|---------|------------|
-| 14.0 | `helpdesk_community/` | `14.0.1.0.3` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002, R-TEST-001 |
-| 15.0 | `helpdesk_community/` | `15.0.1.0.3` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
-| 16.0 | `helpdesk_community/` | `16.0.1.0.3` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
-| 17.0 | `helpdesk_community/` | `17.0.1.0.3` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
-| 18.0 | `helpdesk_community/` | `18.0.1.0.3` | `<list>` | `card` | `<chatter/>` | R-MANIFEST-001 (identity) |
-| 19.0 | `helpdesk_community/` | `19.0.1.0.3` | `<list>` | `card` | `<chatter/>` | canonical (identity) |
+| 14.0 | `helpdesk_community/` | `14.0.1.0.4` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002, R-TEST-001, R-MAIL-001 |
+| 15.0 | `helpdesk_community/` | `15.0.1.0.4` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
+| 16.0 | `helpdesk_community/` | `16.0.1.0.4` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
+| 17.0 | `helpdesk_community/` | `17.0.1.0.4` | `<tree>` | `kanban-box` | `oe_chatter` div | R-MANIFEST-001, R-VIEW-001, R-VIEW-002, R-VIEW-003, R-ORM-002 |
+| 18.0 | `helpdesk_community/` | `18.0.1.0.4` | `<list>` | `card` | `<chatter/>` | R-MANIFEST-001 (identity) |
+| 19.0 | `helpdesk_community/` | `19.0.1.0.4` | `<list>` | `card` | `<chatter/>` | canonical (identity) |
 
 ## 3. Validation evidence
 
@@ -48,12 +48,12 @@ Each branch is a **compiled artifact** produced by the Compatibility Layer
 
 | Series | Artifact | sha256 |
 |--------|----------|--------|
-| 14.0 | `dist/14.0/helpdesk_community-14.0.1.0.3.zip` | `274c6882f0678c8833ac0fdea4c56964f65488a5f2dd94f4c174f165fe0cb42c` |
-| 15.0 | `dist/15.0/helpdesk_community-15.0.1.0.3.zip` | `3d863893a2af539dfb13f743f06fecc007ce1ad11882e42c8b683a0e0f104990` |
-| 16.0 | `dist/16.0/helpdesk_community-16.0.1.0.3.zip` | `18734857f9bfcc02e33ec72f46d2e05f7a4842f101e9ace48939a1714455daf4` |
-| 17.0 | `dist/17.0/helpdesk_community-17.0.1.0.3.zip` | `8452d9ccc97c9fec2b1659a1f35cdb8f296593fcaeffbf00d9baae14b3888667` |
-| 18.0 | `dist/18.0/helpdesk_community-18.0.1.0.3.zip` | `c52516c514f1973684c1404af4c097baaae476c686f851d6571007570d1c6780` |
-| 19.0 | `dist/19.0/helpdesk_community-19.0.1.0.3.zip` | `3f4cba054ff2cc5c99a060d6cc6451003cb6347ddd313cf272ac4158dc190c67` |
+| 14.0 | `dist/14.0/helpdesk_community-14.0.1.0.4.zip` | `15ca78a3dffdb00c8264808ad74799999b3c8a558bd15077a91c08e93af512f5` |
+| 15.0 | `dist/15.0/helpdesk_community-15.0.1.0.4.zip` | `8cac439e3313ba5a2673f79638579079bcb64e62c63c0bca558fb4fda877799f` |
+| 16.0 | `dist/16.0/helpdesk_community-16.0.1.0.4.zip` | `9f0ed4a064c5d205eb1e180ef69d8622b7b04be1c593679d4bad78c3dc08e24e` |
+| 17.0 | `dist/17.0/helpdesk_community-17.0.1.0.4.zip` | `552506474ee6402bf0a4b86e397db3567c97eaa4ce6f590a8126bb4a84588e39` |
+| 18.0 | `dist/18.0/helpdesk_community-18.0.1.0.4.zip` | `9201806966615cfad45d81b255f37603a04cf98ba95c2c618dd2143c18d0d34e` |
+| 19.0 | `dist/19.0/helpdesk_community-19.0.1.0.4.zip` | `b77a8f44c949c802e6ee7d3c2c480766948aec13cd51ba04447157fc0ad779f6` |
 
 ### 3.2 Render smoke (ADR-002)
 - Full matrix 14.0–19.0: **PASSED** (kanban/list/form render, 0 uncaught OwlError)
@@ -108,5 +108,7 @@ series ≤ 17.0 (endorsed through saas-17.4). No `oe_chatter` div remains on 18.
 
 ## 6. Verdict
 
-Engineering gates: **6/6 READY** (release 1.0.3, FA-008 fixed). Remaining item is
-the Store portal submission itself, not code.
+Engineering gates: **6/6 READY** (release 1.0.4). Bugs A–E + mail-template
+rendering fixed; real-user-action UAT 18/18 and overflow-proof UAT 57/57 pass on
+live 19.0 with zero JS/RPC errors; 14.0 Docker smoke re-confirmed. Remaining item
+is the Store portal submission itself, not code.

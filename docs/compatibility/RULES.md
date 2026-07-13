@@ -298,6 +298,26 @@ rule came from when a future Odoo series breaks it.
 - **provenance:** introduced_in `19.0.1.0.1` · verified_in source(14–15) +
   Docker 14 · last_validated 2026-07-13
 
+### R-MAIL-001 — mail.template rendering engine (jinja → qweb)  ★ source-verified
+- **lifecycle:** Stable · **confidence:** 100%
+- **applies_to:** 14.0
+- **trigger:** `mail.template` records whose char fields (`subject`, `email_to`)
+  use `{{ expr }}` (inline_template) and whose `body_html` uses QWeb directives
+  (`t-out`, `t-if`, `t-attf-href`).
+- **transform:** for 14.0 rewrite to jinja: `{{ expr }}` → `${expr}` in char
+  fields and inline URLs; `t-out` → `${expr}`; `t-if`/`t-endif` → `% if %`/
+  `% endif`; `t-attf-href` → plain `href` with `${...}`.
+- **boundary:** **15.0**. Odoo replaced jinja with qweb (`body_html`) +
+  inline_template (char fields) in 15.0 (commit `4813f42` "replace jinja with
+  qweb"; `odoo/tools/jinja.py` removed). On 14.0 the modern idiom is inert
+  (`{{ }}` stays literal; `t-*` are dead attributes).
+- **note:** templates are `noupdate` data and dormant (not sent by any code
+  path), so install succeeds on every series regardless; this rule keeps them
+  render-correct if a reviewer test-sends them.
+- **evidence:** golden ships qweb (15–19); 14 artifact ships jinja variant.
+- **provenance:** introduced_in `19.0.1.0.4` · verified_in source(14–15) ·
+  last_validated 2026-07-13
+
 ---
 
 ## Rejected registry
