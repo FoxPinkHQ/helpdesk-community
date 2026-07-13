@@ -1,6 +1,8 @@
 # Helpdesk Community
 
-> Support ticket management for Odoo 19.0 — Community Edition.
+> Support ticket management for **Odoo 18.0** — Community Edition.
+
+**Version:** 18.0.1.0.4 · **License:** LGPL-3 · **Publisher:** FoxPink · Maintained for **Odoo 14.0 – 19.0** (one validated build per series)
 
 ## Features
 
@@ -21,10 +23,12 @@
 
 ## Installation
 
-Install via Odoo App Store, or clone into your addons directory:
+Install via the Odoo Apps Store, or download the ZIP for **your Odoo version** from
+[Releases](https://github.com/FoxPinkHQ/helpdesk-community/releases) and unzip it
+into your addons directory. To track this series from git:
 
 ```bash
-git clone https://github.com/FoxPinkHQ/helpdesk-community addons/helpdesk_community
+git clone -b 18.0 https://github.com/FoxPinkHQ/helpdesk-community addons/helpdesk_community
 ```
 
 Restart Odoo, activate Developer Mode, then go to Apps → Update Apps List. Search for "Helpdesk Community" and install.
@@ -45,7 +49,9 @@ Restart Odoo, activate Developer Mode, then go to Apps → Update Apps List. Sea
 
 ## Compatibility
 
-- Odoo 19.0 (Community / Enterprise)
+- **This build:** Odoo 18.0 (Community / Enterprise)
+- Maintained across **Odoo 14.0, 15.0, 16.0, 17.0, 18.0, 19.0** — install the build matching your Odoo version. Each series has its own git branch and its own validated release ZIP.
+- **Quality gates (see [ADR-003](docs/adr/003-three-tier-quality-gates.md)):** Build + Render smoke pass on all series 14.0–19.0; full behavior UAT (real user actions + overflow) runs on the canonical 19.0.
 
 ## Community vs Pro
 
@@ -64,7 +70,7 @@ Restart Odoo, activate Developer Mode, then go to Apps → Update Apps List. Sea
 
 ## Changelog
 
-See [docs/CHANGELOG.md](docs/CHANGELOG.md).
+See [docs/CHANGELOG.md](docs/CHANGELOG.md). Latest: **18.0.1.0.4** — fixed Bugs A–E (category color save, portal CSRF, stage default, assign, filter labels) and mail-template rendering.
 
 ## Support
 
