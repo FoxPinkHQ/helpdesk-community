@@ -50,9 +50,19 @@
 - [x] Version matrix documented (docs/compatibility/MATRIX.md)
 - [x] Known false assumptions recorded (FA-001 … FA-007)
 
-### 5. Package
-- [x] `package_module.ps1` VALIDATION PASSED (manifest keys, license, data files, icon size, junk sweep)
-- [x] ZIP artifact built with forward-slash entries — `dist/helpdesk_community-19.0.1.0.2.zip`
+### 5. Package — SIX independent artifacts (FoxPink releases by artifact, not by branch)
+> The Compiler's final output is 6 validated ZIPs, one per series, produced by
+> `build_market_release.ps1` (build_version → package_module ×6) into
+> `dist/<series>/` with a `dist/market-release.json` manifest (sha256 + size).
+- [x] Odoo 14 artifact — `dist/14.0/helpdesk_community-14.0.1.0.2.zip`
+- [x] Odoo 15 artifact — `dist/15.0/helpdesk_community-15.0.1.0.2.zip`
+- [x] Odoo 16 artifact — `dist/16.0/helpdesk_community-16.0.1.0.2.zip`
+- [x] Odoo 17 artifact — `dist/17.0/helpdesk_community-17.0.1.0.2.zip`
+- [x] Odoo 18 artifact — `dist/18.0/helpdesk_community-18.0.1.0.2.zip`
+- [x] Odoo 19 artifact — `dist/19.0/helpdesk_community-19.0.1.0.2.zip`
+- [x] 6 ZIP validated (forward-slash entries, manifest keys, license, icon, junk sweep)
+- [x] 6 manifest version prefixes correct (`<series>.1.0.2`, fail-closed assert)
+- [x] `dist/market-release.json` emitted (`validated: true`, 6 sha256)
 
 ### 6. Store Assets
 - [x] `icon.png` 512×512
@@ -82,6 +92,23 @@
 - [ ] Mark first **FoxPink Market Release** once Store-approved
 
 ---
+
+## Definition of "Market Ready" (release-by-artifact)
+FoxPink does **not** publish by branch. `19.0` is the canonical engineering
+branch; 14–18 are compatibility targets. The Store receives **6 artifacts**, not
+6 development processes. A module is Market Ready only when every row is `[x]`:
+
+| Condition                         | Required |
+| --------------------------------- | :------: |
+| Odoo 14 artifact                  |    [x]   |
+| Odoo 15 artifact                  |    [x]   |
+| Odoo 16 artifact                  |    [x]   |
+| Odoo 17 artifact                  |    [x]   |
+| Odoo 18 artifact                  |    [x]   |
+| Odoo 19 artifact                  |    [x]   |
+| 6 ZIP validated                   |    [x]   |
+| 6 manifest version prefix correct |    [x]   |
+| Store upload completed            |    [ ]   |
 
 ## How to reuse (module #2+)
 1. Copy this file to the new module repo.
