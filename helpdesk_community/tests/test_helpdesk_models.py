@@ -129,7 +129,7 @@ class TestHelpdeskModels(common.TransactionCase):
         # Call the callback directly using the golden (18.0/19.0) 2-arg
         # signature. The Compatibility Layer (R-ORM-002) appends `order`
         # when backporting to <= 17.0, so it also rewrites this call.
-        stages = self.Ticket._read_group_stage_ids(self.Stage, [])
+        stages = self.Ticket._read_group_stage_ids(self.Stage, [], 'id')
         self.assertIn(self.stage_new, stages)
         self.assertIn(self.stage_ip, stages)
 
