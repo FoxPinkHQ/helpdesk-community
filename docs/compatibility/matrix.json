@@ -1,0 +1,43 @@
+{
+  "$schema": "foxpink-compat-matrix/1.0",
+  "note": "Canonical machine-readable compatibility matrix. Single source of truth for ResearchPass, which renders per-branch docs/compatibility/THIS_BRANCH.md and per-series release notes. Faithful projection of docs/compatibility/RULES.md + MATRIX.md. Edit ONLY on canonical 19.0; identical on every branch.",
+  "canonical": "19.0",
+  "series_all": ["14.0", "15.0", "16.0", "17.0", "18.0", "19.0"],
+  "module": "helpdesk_community",
+  "last_validated": "2026-07-13",
+  "kinds": {
+    "transform": "compiler rewrites the golden 19.0 form for the listed series",
+    "identity": "golden form is valid on all series; no transform",
+    "lint": "golden-authoring constraint (golden must/must-not emit); version-independent"
+  },
+  "lifecycle_gate": {
+    "Stable": "auto-applied silently",
+    "Verified": "source-proven, NEVER auto-applied (needs Docker green)",
+    "Draft": "ignored (not applied)",
+    "Rejected": "ignored; warn if matched"
+  },
+  "rules": [
+    {"id": "R-MANIFEST-001", "pass": "ManifestPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0", "15.0", "16.0", "17.0", "18.0"], "boundary": "19.0", "title": "Manifest version prefix", "summary": "Rewrite the leading 19.0 of __manifest__.py 'version' to the target series."},
+    {"id": "R-ORM-001", "pass": "TrackingPass", "lifecycle": "Stable", "confidence": 100, "kind": "identity", "exercised": true, "applies_to": [], "boundary": "13.0", "title": "Batch create (model_create_multi)", "summary": "@api.model_create_multi + create(vals_list) identical across 14-19."},
+    {"id": "R-ORM-002", "pass": "TrackingPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0", "15.0", "16.0", "17.0"], "boundary": "18.0", "title": "group_expand callback signature", "summary": "Append the order param to _read_group_stage_ids (and its call sites) for <=17."},
+    {"id": "R-ORM-003", "pass": "TrackingPass", "lifecycle": "Verified", "confidence": 100, "kind": "transform", "exercised": false, "applies_to": ["14.0", "15.0", "16.0", "17.0"], "boundary": "18.0", "title": "aggregator -> group_operator", "summary": "Rename field kwarg aggregator -> group_operator for <=17 (future modules only)."},
+    {"id": "R-VIEW-001", "pass": "ViewPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0", "15.0", "16.0", "17.0"], "boundary": "18.0", "title": "<list> -> <tree>", "summary": "Rename <list>/</list> -> <tree>/</tree> and view_mode token list -> tree for <=17."},
+    {"id": "R-VIEW-002", "pass": "ViewPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0", "15.0", "16.0", "17.0"], "boundary": "18.0", "title": "Kanban card template name", "summary": "Rename t-name=card -> kanban-box for <=17 (card is a HARD requirement on 19)."},
+    {"id": "R-VIEW-003", "pass": "ViewPass", "lifecycle": "Stable", "confidence": 100, "kind": "identity", "exercised": true, "applies_to": [], "boundary": "18.0", "title": "Chatter arch (legacy oe_chatter div)", "summary": "Legacy oe_chatter div accepted 14-19; no transform (new <chatter/> since 18.0)."},
+    {"id": "R-VIEW-004", "pass": "ViewPass", "lifecycle": "Stable", "confidence": 100, "kind": "lint", "exercised": true, "applies_to": [], "boundary": "19.0", "title": "Kanban font-awesome title", "summary": "Golden ensures <i class=fa> has a title attribute (accessibility)."},
+    {"id": "R-VIEW-005", "pass": "ViewPass", "lifecycle": "Verified", "confidence": 100, "kind": "lint", "exercised": true, "applies_to": [], "boundary": "17.0", "title": "states/attrs forbidden", "summary": "Golden must NOT emit states/attrs (removed at 17.0); use invisible/readonly domains."},
+    {"id": "R-VIEW-006", "pass": "ViewPass", "lifecycle": "Verified", "confidence": 100, "kind": "lint", "exercised": true, "applies_to": [], "boundary": "19.0", "title": "search <group expand> forbidden", "summary": "Golden must NOT emit expand on <group> (removed from the group RNG in 19.0)."},
+    {"id": "R-VIEW-007", "pass": "ViewPass", "lifecycle": "Stable", "confidence": 100, "kind": "lint", "exercised": true, "applies_to": [], "boundary": "all", "title": "Fully-qualified group xmlids", "summary": "Prefix view/menuitem groups= xmlids with module. (version-independent correctness)."},
+    {"id": "R-VIEW-008", "pass": "ViewPass", "lifecycle": "Draft", "confidence": 60, "kind": "transform", "exercised": false, "applies_to": ["14.0", "15.0", "16.0"], "boundary": "17.0", "title": "attrs <-> invisible domains", "summary": "Rewrite unified modifiers to legacy attrs for <=16 (mapping unvalidated; Draft => not auto-applied)."},
+    {"id": "R-SEC-001", "pass": "SecurityPass", "lifecycle": "Stable", "confidence": 100, "kind": "identity", "exercised": true, "applies_to": [], "boundary": "n/a", "title": "res.groups category_id optional", "summary": "category_id optional on all series; no transform."},
+    {"id": "R-REPORT-001", "pass": "ReportPass", "lifecycle": "Stable", "confidence": 100, "kind": "identity", "exercised": true, "applies_to": [], "boundary": "n/a", "title": "QWeb report + paperformat", "summary": "No structural transform; manifest data ordering via ManifestPass."},
+    {"id": "R-ASSET-001", "pass": "AssetPass", "lifecycle": "Verified", "confidence": 95, "kind": "transform", "exercised": false, "applies_to": ["14.0"], "boundary": "15.0", "title": "Asset bundle declaration", "summary": "For 14.0 emit an XML web.assets_backend template instead of the manifest assets dict (future OWL modules)."},
+    {"id": "R-TEST-001", "pass": "TestPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0"], "boundary": "15.0", "title": "TransactionCase class-level env", "summary": "For 14.0 rewrite common.TransactionCase -> common.SavepointCase (setUpClass/cls.env)."},
+    {"id": "R-MAIL-001", "pass": "MailPass", "lifecycle": "Stable", "confidence": 100, "kind": "transform", "exercised": true, "applies_to": ["14.0"], "boundary": "15.0", "title": "mail.template jinja <-> qweb", "summary": "For 14.0 rewrite qweb/inline_template mail.template forms back to jinja (${...}, % if %)."}
+  ],
+  "rejected": [
+    {"id": "RJ-001", "hypothesis": "transform group_expand at the 19->18 boundary", "reason": "18 & 19 both 3-arg; boundary is 18->17", "superseded_by": "R-ORM-002", "fa": "FA-001"},
+    {"id": "RJ-002", "hypothesis": "states/attrs removed at 19.0", "reason": "removed at 17.0; 16 still processes them", "superseded_by": "R-VIEW-005", "fa": "FA-005"},
+    {"id": "RJ-003", "hypothesis": "<chatter/> needs expand-to-legacy-div transform for <=17", "reason": "golden already uses legacy oe_chatter div (accepted 14-19)", "superseded_by": "R-VIEW-003", "fa": "FA-004"}
+  ]
+}
