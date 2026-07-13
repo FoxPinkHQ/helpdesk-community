@@ -15,24 +15,32 @@
         h3 { font-size: 16px; font-weight: 600; color: #1E1B2E; margin-top: 22px; margin-bottom: 6px; }
         p { margin-bottom: 12px; color: #4B5563; }
         .lead { font-size: 17px; color: #374151; }
+        .sub { font-size: 15px; color: #6B7280; margin-top: 2px; }
         .badge { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; background: #F5F3FF; color: #6D28D9; margin: 2px 4px 2px 0; }
         ul { margin: 8px 0 16px 22px; } li { margin-bottom: 6px; color: #4B5563; }
+        ol { margin: 8px 0 16px 22px; } ol li { margin-bottom: 8px; color: #374151; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
         .card { padding: 18px; background: #FAFAF9; border-radius: 10px; border: 1px solid #EDE9FE; }
         .card h4 { font-size: 15px; font-weight: 700; color: #6D28D9; margin-bottom: 4px; }
         .card p { font-size: 13.5px; color: #6B7280; margin: 0; }
+        .oc { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+        .oc .col { padding: 18px 20px; border-radius: 10px; border: 1px solid #E5E7EB; }
+        .oc .community { background: #F5F3FF; border-color: #EDE9FE; }
+        .oc .pro { background: #FAFAF9; }
+        .oc h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .oc .community h4 { color: #6D28D9; }
+        .oc .pro h4 { color: #6B7280; }
+        .oc ul { margin: 4px 0 0 20px; } .oc li { font-size: 13.5px; margin-bottom: 5px; }
         .shot { width: 100%; border-radius: 10px; border: 1px solid #E5E7EB; margin: 10px 0 6px; box-shadow: 0 6px 22px rgba(0,0,0,.10); }
         .shot-cap { font-size: 13px; color: #9CA3AF; text-align: center; margin-bottom: 22px; }
         table.matrix { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
         table.matrix th, table.matrix td { padding: 10px 14px; border: 1px solid #E5E7EB; text-align: center; }
         table.matrix th { background: #6D28D9; color: #fff; font-weight: 600; }
         table.matrix td.ok { color: #059669; font-weight: 700; font-size: 17px; }
-        .callout { background: linear-gradient(135deg,#F5F3FF,#EDE9FE); border-left: 4px solid #7C3AED; padding: 16px 20px; border-radius: 8px; margin: 18px 0; }
-        .callout strong { color: #4C1D95; }
         hr { border: none; border-top: 1px solid #E5E7EB; margin: 36px 0; }
         .foot { font-size: 13px; color: #6B7280; text-align: center; }
         .foot a { color: #6D28D9; text-decoration: none; }
-        @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .grid, .oc { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -42,91 +50,129 @@
 </div>
 
 <h1>Helpdesk Community</h1>
-<p>
-    <span class="badge">Odoo 14 → 19</span>
+<p class="lead">A modern, lightweight helpdesk module for Odoo Community.</p>
+<p class="sub">Compatible with Odoo 14, 15, 16, 17, 18 and 19.</p>
+<p style="margin-top:10px;">
+    <span class="badge">Odoo 14 – 19</span>
     <span class="badge">Community &amp; Enterprise</span>
-    <span class="badge">LGPL-3 · Free</span>
+    <span class="badge">LGPL-3</span>
     <span class="badge">No external services</span>
 </p>
-<p class="lead">A complete, open-source support desk for Odoo — tickets, teams, pipeline stages, and a self-service customer portal. Production-ready and free, with zero artificial limits.</p>
 
-<h2>The problem</h2>
-<p>Support requests arrive by email, chat, and phone — and quietly get lost. Without a single place to track them, tickets slip through the cracks, customers repeat themselves, and your team has no idea what's actually pending. Most Odoo helpdesk options are either paid, locked to one Odoo version, or bloated with features you'll never use.</p>
-
-<h2>The solution</h2>
-<p>Helpdesk Community gives every request a home. Capture tickets, route them to the right team, move them through a clear pipeline, and let customers follow their own tickets through the portal — all inside Odoo, with no subscription and no third-party service. One clean module that runs on <strong>six Odoo versions (14 through 19)</strong>.</p>
+<h2>Overview</h2>
+<p>Many Odoo Community users need a simple helpdesk without Enterprise-only
+features. Helpdesk Community provides a clean ticket workflow, customer portal
+access, email notifications and team management while remaining lightweight and
+fully open source.</p>
+<p>Tickets are captured in one place, routed to a team, moved through a defined
+pipeline, and made visible to customers through the portal — all inside Odoo,
+with no subscription and no third-party service.</p>
 
 <h2>Key features</h2>
 <div class="grid">
-    <div class="card"><h4>Ticket management</h4><p>Create, assign, prioritize, and resolve tickets with full chatter history and activity tracking.</p></div>
-    <div class="card"><h4>Kanban pipeline</h4><p>Drag-and-drop tickets across customizable stages: New → In Progress → Resolved → Closed.</p></div>
-    <div class="card"><h4>Teams &amp; agents</h4><p>Group agents into teams and route tickets to the right people with per-team record rules.</p></div>
-    <div class="card"><h4>Customer portal</h4><p>Customers submit and track their own tickets — no agent login, no back-and-forth email.</p></div>
-    <div class="card"><h4>Categories</h4><p>Classify tickets (Bug, Feature, Billing, General) for faster triage and cleaner reporting.</p></div>
-    <div class="card"><h4>Email notifications</h4><p>Automatic messages on assignment and stage changes via native Odoo mail templates.</p></div>
-    <div class="card"><h4>Access control</h4><p>Three roles — User, Team Leader, Manager — with sensible defaults out of the box.</p></div>
-    <div class="card"><h4>Search &amp; filters</h4><p>Group and filter by stage, team, priority, or category to find anything in seconds.</p></div>
+    <div class="card"><h4>Ticket management</h4><p>Create, assign, prioritize and resolve tickets, with chatter history and a generated ticket number.</p></div>
+    <div class="card"><h4>Kanban workflow</h4><p>Move tickets across pipeline stages by drag and drop: New → In Progress → Resolved → Closed.</p></div>
+    <div class="card"><h4>Teams</h4><p>Group agents into teams, each with its own members and assignment policy.</p></div>
+    <div class="card"><h4>Assignment</h4><p>Assign tickets to a team and an agent; manual, round-robin, least-loaded or random policies.</p></div>
+    <div class="card"><h4>Categories</h4><p>Classify tickets by type or product for triage and reporting.</p></div>
+    <div class="card"><h4>Customer portal</h4><p>Portal users submit and follow their own tickets without an agent login.</p></div>
+    <div class="card"><h4>Email notifications</h4><p>Notify the assignee on assignment and the customer on stage changes, using Odoo mail templates.</p></div>
+    <div class="card"><h4>Search &amp; filters</h4><p>Filter and group by stage, team, priority, assignee or category.</p></div>
+    <div class="card"><h4>Access control</h4><p>Three roles — User, Team Leader, Manager — plus portal access, with record rules.</p></div>
+    <div class="card"><h4>Multi-version support</h4><p>One codebase built and validated on Odoo 14 through 19.</p></div>
 </div>
+
+<h2>Installation</h2>
+<ol>
+    <li>Install the module from <strong>Apps</strong>. Dependencies (<em>base, mail, portal, web</em>) are standard Odoo modules and install automatically. No external service or API key is required.</li>
+    <li>Default stages (New → In Progress → Resolved → Closed) are created on install.</li>
+    <li>Create your teams, add members and set an assignment policy; add categories if needed.</li>
+    <li><em>(Optional)</em> Configure Odoo's outgoing mail server to enable email notifications.</li>
+    <li>Grant portal access to customers who should submit and follow tickets.</li>
+    <li>Start creating tickets.</li>
+</ol>
+
+<h2>Open core</h2>
+<p>Helpdesk Community is fully functional on its own. The list below states
+clearly what is included today and what is planned for a separate Professional
+edition, so there is no ambiguity.</p>
+<div class="oc">
+    <div class="col community">
+        <h4>Community (this module — free, LGPL-3)</h4>
+        <ul>
+            <li>Ticket management</li>
+            <li>Kanban pipeline &amp; stages</li>
+            <li>Teams &amp; assignment</li>
+            <li>Categories</li>
+            <li>Customer portal</li>
+            <li>Email notifications</li>
+            <li>Search, filters &amp; access control</li>
+        </ul>
+    </div>
+    <div class="col pro">
+        <h4>Professional (planned — not required)</h4>
+        <ul>
+            <li>SLA management &amp; escalation</li>
+            <li>Inbound email gateway</li>
+            <li>Automation &amp; auto-assignment</li>
+            <li>Advanced dashboards &amp; reporting</li>
+            <li>Time tracking on tickets</li>
+            <li>Knowledge base &amp; canned responses</li>
+        </ul>
+    </div>
+</div>
+
+<h2>Compatibility</h2>
+<table class="matrix">
+    <tr><th>Odoo</th><th>19.0</th><th>18.0</th><th>17.0</th><th>16.0</th><th>15.0</th><th>14.0</th></tr>
+    <tr><td>Supported</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td></tr>
+</table>
+<ul>
+    <li>Community &amp; Enterprise editions.</li>
+    <li>Each release is built and validated on all six versions.</li>
+    <li>Depends only on standard Odoo modules: <em>base, mail, portal, web</em>.</li>
+    <li>No external API keys or paid services required.</li>
+</ul>
 
 <h2>Screenshots</h2>
 
-<img class="shot" src="screenshot_01_kanban.png" alt="Kanban pipeline"/>
-<p class="shot-cap">Kanban pipeline — drag tickets across stages, color-coded by priority.</p>
+<img class="shot" src="screenshot_01_kanban.png" alt="Kanban view"/>
+<p class="shot-cap">Kanban view — move tickets across pipeline stages by drag and drop.</p>
 
 <img class="shot" src="screenshot_02_form.png" alt="Ticket form"/>
-<p class="shot-cap">Ticket form — everything about a request in one place, with chatter and activities.</p>
+<p class="shot-cap">Ticket form — subject, description, priority, team, assignee and chatter.</p>
 
 <img class="shot" src="screenshot_03_list.png" alt="Ticket list"/>
-<p class="shot-cap">List view — scan and bulk-manage tickets with sortable columns.</p>
+<p class="shot-cap">List view — sort and bulk-manage tickets.</p>
 
 <img class="shot" src="screenshot_08_search.png" alt="Search and filters"/>
-<p class="shot-cap">Powerful search — filter and group by stage, team, priority, or category.</p>
+<p class="shot-cap">Search and filters — group by stage, team, priority or category.</p>
 
-<img class="shot" src="screenshot_04_teams.png" alt="Team management"/>
-<p class="shot-cap">Teams — organize agents and assign ticket ownership.</p>
+<img class="shot" src="screenshot_04_teams.png" alt="Teams"/>
+<p class="shot-cap">Teams — group agents and set an assignment policy.</p>
 
-<img class="shot" src="screenshot_05_stages.png" alt="Stage configuration"/>
-<p class="shot-cap">Stages — tailor your support pipeline to how your team works.</p>
+<img class="shot" src="screenshot_05_stages.png" alt="Stages"/>
+<p class="shot-cap">Stages — configure the pipeline, including start and terminal stages.</p>
 
 <img class="shot" src="screenshot_06_portal_list.png" alt="Customer portal ticket list"/>
-<p class="shot-cap">Customer portal — customers see all their tickets and statuses at a glance.</p>
+<p class="shot-cap">Customer portal — a customer sees their own tickets and status.</p>
+
+<img class="shot" src="screenshot_09_portal_create.png" alt="Customer portal ticket creation"/>
+<p class="shot-cap">Portal — a customer submits a new ticket through a form.</p>
 
 <img class="shot" src="screenshot_07_portal_detail.png" alt="Customer portal ticket detail"/>
-<p class="shot-cap">Portal detail — customers follow progress without contacting an agent.</p>
-
-<h2>Compatibility</h2>
-<div class="callout">
-    <strong>One module. Six Odoo versions.</strong> Every release is built and tested on the full Odoo range — a level of coverage most helpdesk modules simply don't offer.
-</div>
-<table class="matrix">
-    <tr><th>Odoo</th><th>19.0</th><th>18.0</th><th>17.0</th><th>16.0</th><th>15.0</th><th>14.0</th></tr>
-    <tr><td>Status</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td><td class="ok">&#10003;</td></tr>
-</table>
-<ul>
-    <li>Community &amp; Enterprise editions</li>
-    <li>No external API keys or paid services required</li>
-    <li>Depends only on standard Odoo modules: <em>base, mail, portal, web</em></li>
-</ul>
+<p class="shot-cap">Portal detail — a customer follows one ticket's progress.</p>
 
 <h2>Support</h2>
-<p>Helpdesk Community is actively maintained by FoxPink. Found a bug or have a question?</p>
 <ul>
     <li>Issues &amp; source: <a href="https://github.com/FoxPinkHQ/helpdesk-community">github.com/FoxPinkHQ/helpdesk-community</a></li>
-    <li>License: LGPL-3 — free to use, modify, and distribute</li>
-</ul>
-
-<h2>Roadmap</h2>
-<p>Community edition is fully usable on its own, with no artificial limitations. Planned and Pro-tier additions:</p>
-<ul>
-    <li>SLA policies &amp; deadline tracking</li>
-    <li>Email gateway (create tickets straight from inbound mail)</li>
-    <li>Automation rules &amp; auto-assignment</li>
-    <li>Reporting dashboards &amp; KPIs</li>
+    <li>Documentation: see the repository README and <em>docs/</em>.</li>
+    <li>License: LGPL-3 — free to use, modify and distribute.</li>
 </ul>
 
 <hr>
 <p class="foot">
-    <strong>FoxPink</strong> — Clean Odoo modules, built to last.<br>
+    <strong>FoxPink</strong> — open-source Odoo modules.<br>
     <a href="https://github.com/FoxPinkHQ/helpdesk-community">GitHub</a> · LGPL-3
 </p>
 
