@@ -29,11 +29,11 @@
                            options="{'clickable': '1'}"/>
                     <button name="action_close" type="object"
                             string="Close"
-                            groups="group_helpdesk_team_leader"
+                            groups="helpdesk_community.group_helpdesk_team_leader"
                             confirm="Are you sure you want to close this ticket?"/>
                     <button name="action_reopen" type="object"
                             string="Reopen"
-                            groups="group_helpdesk_manager"/>
+                            groups="helpdesk_community.group_helpdesk_manager"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">

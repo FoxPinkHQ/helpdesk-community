@@ -73,5 +73,5 @@ class HelpdeskTicket(models.Model):
         self.write({'close_date': fields.Datetime.now()})
 
     @api.model
-    def _read_group_stage_ids(self, stages, domain, order):
+    def _read_group_stage_ids(self, stages, domain):
         return self.env['helpdesk.stage'].search([])

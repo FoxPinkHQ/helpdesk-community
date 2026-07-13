@@ -1,0 +1,17 @@
+<!-- R-VIEW-001 golden (18.0 / 19.0): <list> root + view_mode "list" -->
+<record id="view_helpdesk_ticket_tree" model="ir.ui.view">
+    <field name="name">helpdesk.ticket.tree</field>
+    <field name="model">helpdesk.ticket</field>
+    <field name="arch" type="xml">
+        <list>
+            <field name="ticket_number"/>
+            <field name="name"/>
+            <field name="stage_id"/>
+        </list>
+    </field>
+</record>
+<record id="action_helpdesk_ticket_tree" model="ir.actions.act_window">
+    <field name="name">Tickets</field>
+    <field name="res_model">helpdesk.ticket</field>
+    <field name="view_mode">kanban,list,form</field>
+</record>

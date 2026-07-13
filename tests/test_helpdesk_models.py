@@ -126,7 +126,36 @@ class TestHelpdeskModels(common.TransactionCase):
         self.assertFalse(self.Ticket.search([('id', '=', tid)]))
 
     def test_12_read_group_stage_ids(self):
-        stages = self.Ticket._read_group_stage_ids(
-            self.Stage, [], 'sequence')
+        # Call the callback directly using the golden (18.0/19.0) 2-arg
+        # signature. The Compatibility Layer (R-ORM-002) appends `order`
+        # when backporting to <= 17.0, so it also rewrites this call.
+        stages = self.Ticket._read_group_stage_ids(self.Stage, [])
         self.assertIn(self.stage_new, stages)
         self.assertIn(self.stage_ip, stages)
+
+    def test_13_group_expand_orm_path(self):
+        # Regression for R-ORM-002 golden bug: exercise group_expand through
+        # the real ORM grouping path so a wrong callback signature raises here
+        # on ANY series (read_group is portable across 14-19). Empty stages
+        # must still appear because group_expand returns every stage.
+        self.Ticket.create({
+            'name': 'Group expand regression',
+            'stage_id': self.stage_new.id,
+        })
+        groups = self.Ticket.read_group([], [], ['stage_id'])
+        grouped_ids = [g['stage_id'][0] for g in groups if g.get('stage_id')]
+        self.assertIn(self.stage_ip.id, grouped_ids)
+        self.assertIn(self.stage_done.id, grouped_ids)
+
+    def test_14_security_groups_resolve(self):
+        # Regression for F-001: view/menu groups= must reference resolvable
+        # fully-qualified xml ids, otherwise button/menu visibility is dropped.
+        for xmlid in (
+            'helpdesk_community.group_helpdesk_user',
+            'helpdesk_community.group_helpdesk_team_leader',
+            'helpdesk_community.group_helpdesk_manager',
+        ):
+            self.assertTrue(
+                self.env.ref(xmlid, raise_if_not_found=False),
+                'Missing security group %s' % xmlid,
+            )
