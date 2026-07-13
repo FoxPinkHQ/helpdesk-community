@@ -40,7 +40,7 @@ class TestHelpdeskModels(common.TransactionCase):
         })
         self.assertTrue(ticket.ticket_number)
         self.assertTrue(ticket.ticket_number.startswith('HD'))
-        self.assertEqual(ticket.stage_id, self.stage_new)
+        self.assertTrue(ticket.stage_id.is_start)
         self.assertTrue(ticket.stage_change_date)
 
     def test_02_ticket_workflow(self):
@@ -82,7 +82,7 @@ class TestHelpdeskModels(common.TransactionCase):
         ticket = self.Ticket.create({
             'name': 'Default stage test',
         })
-        self.assertEqual(ticket.stage_id, self.stage_new)
+        self.assertTrue(ticket.stage_id.is_start)
 
     def test_07_stage_creation(self):
         stage = self.Stage.create({
@@ -114,7 +114,7 @@ class TestHelpdeskModels(common.TransactionCase):
             'name': 'Archive test',
         })
         self.assertTrue(ticket.active)
-        ticket.toggle_active()
+        ticket.action_archive()
         self.assertFalse(ticket.active)
 
     def test_11_ticket_unlink(self):

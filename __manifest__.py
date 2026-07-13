@@ -3,6 +3,7 @@
     'version': '19.0.1.0.0',
     'category': 'Services/Helpdesk',
     'summary': 'Helpdesk / Support Ticket Management — Community Edition',
+    'description': 'Full-featured helpdesk and support ticket management. Free, open-source, and production-ready.',
     'author': 'FoxPink',
     'website': 'https://github.com/FoxPinkHQ/helpdesk-community',
     'license': 'LGPL-3',

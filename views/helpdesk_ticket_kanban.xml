@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="o_kanban_card_details">
                                     <div t-if="record.partner_id.raw_value">
-                                        <i class="fa fa-user"/>
+                                        <i class="fa fa-user" title="Customer"/>
                                         <field name="partner_id"/>
                                     </div>
                                     <div t-if="record.category_id.raw_value">

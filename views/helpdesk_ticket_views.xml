@@ -28,11 +28,11 @@
                     <field name="stage_id" widget="statusbar"
                            options="{'clickable': '1'}"/>
                     <button name="action_close" type="object"
-                            string="Close" states="resolved"
+                            string="Close"
                             groups="group_helpdesk_team_leader"
                             confirm="Are you sure you want to close this ticket?"/>
                     <button name="action_reopen" type="object"
-                            string="Reopen" states="closed"
+                            string="Reopen"
                             groups="group_helpdesk_manager"/>
                 </header>
                 <sheet>
@@ -85,22 +85,13 @@
                 <field name="ticket_number"/>
                 <field name="partner_id"/>
                 <field name="user_id"/>
-                <filter string="My Tickets"
-                        name="my_tickets"
-                        domain="[('user_id', '=', uid)]"/>
-                <filter string="Unassigned"
-                        name="unassigned"
-                        domain="[('user_id', '=', False)]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Stage" name="group_stage"
-                            context="{'group_by': 'stage_id'}"/>
-                    <filter string="Team" name="group_team"
-                            context="{'group_by': 'team_id'}"/>
-                    <filter string="Priority" name="group_priority"
-                            context="{'group_by': 'priority'}"/>
-                    <filter string="Assigned To" name="group_user"
-                            context="{'group_by': 'user_id'}"/>
-                </group>
+                <filter name="my_tickets" domain="[('user_id', '=', uid)]"/>
+                <filter name="unassigned" domain="[('user_id', '=', False)]"/>
+                <separator/>
+                <filter name="group_stage" context="{'group_by': 'stage_id'}"/>
+                <filter name="group_team" context="{'group_by': 'team_id'}"/>
+                <filter name="group_priority" context="{'group_by': 'priority'}"/>
+                <filter name="group_user" context="{'group_by': 'user_id'}"/>
             </search>
         </field>
     </record>

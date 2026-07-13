@@ -26,17 +26,19 @@ class HelpdeskTicket(models.Model):
     last_activity_date = fields.Datetime(string='Last Activity Date', readonly=True)
     close_date = fields.Datetime(string='Close Date', readonly=True)
 
-    @api.model
-    def create(self, vals):
-        if vals.get('ticket_number', 'New') == 'New':
-            vals['ticket_number'] = self.env['ir.sequence'].next_by_code('helpdesk.ticket') or 'New'
-        if not vals.get('stage_id'):
-            start_stage = self.env['helpdesk.stage'].search([('is_start', '=', True)], limit=1)
-            if start_stage:
-                vals['stage_id'] = start_stage.id
-        res = super().create(vals)
-        res.stage_change_date = fields.Datetime.now()
-        res.last_activity_date = fields.Datetime.now()
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('ticket_number', 'New') == 'New':
+                vals['ticket_number'] = self.env['ir.sequence'].next_by_code('helpdesk.ticket') or 'New'
+            if not vals.get('stage_id'):
+                start_stage = self.env['helpdesk.stage'].search([('is_start', '=', True)], limit=1)
+                if start_stage:
+                    vals['stage_id'] = start_stage.id
+        res = super().create(vals_list)
+        for record in res:
+            record.stage_change_date = fields.Datetime.now()
+            record.last_activity_date = fields.Datetime.now()
         return res
 
     def write(self, vals):

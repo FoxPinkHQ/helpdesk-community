@@ -64,7 +64,7 @@ Restart Odoo, activate Developer Mode, then go to Apps → Update Apps List. Sea
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md).
+See [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Support
 

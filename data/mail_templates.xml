@@ -5,7 +5,7 @@
             <field name="name">Helpdesk Ticket: Assigned</field>
             <field name="model_id" ref="model_helpdesk_ticket"/>
             <field name="subject">Ticket {{ object.ticket_number }} assigned to you</field>
-            <field name="partner_to" eval="[(4, ref('helpdesk.group_helpdesk_user'))]"/>
+            <field name="email_to">${object.user_id.email or ''}</field>
             <field name="auto_delete" eval="True"/>
             <field name="body_html">
                 <![CDATA[
@@ -17,7 +17,7 @@
     <strong>Description:</strong><br/>
     ${object.description}
 </p>
-<a href="${object.get_base_url()}/web#id=${object.id}&model=helpdesk.ticket&view_type=form">
+<a href="${object.get_base_url()}/web#id=${object.id}&amp;model=helpdesk.ticket&amp;view_type=form">
     View Ticket
 </a>
 ]]>
