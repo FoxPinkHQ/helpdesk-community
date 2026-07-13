@@ -84,7 +84,7 @@ usages are legitimate (tree column, search group_by).
 | STORE-001 | Module in valid-name subfolder | READY |
 | STORE-002 | branch == series == version prefix | READY (6/6) |
 | STORE-003 | Each branch = compiled artifact, no hand-edit | READY |
-| STORE-004 | English description / screenshots | PENDING (portal step) |
+| STORE-004 | English description / screenshots | READY (index.html listing + 9 captioned screenshots, all 6 branches) |
 | STORE-005 | Real PNG icon (512×512) | READY |
 | STORE-006 | No manifest error (would unpublish whole repo) | READY (6/6 validated) |
 | STORE-007 | No embedded credentials | LOCAL DONE / **PAT rotation pending on GitHub** |
