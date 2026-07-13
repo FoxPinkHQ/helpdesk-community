@@ -53,7 +53,6 @@
                                    options="{'create_edit': True}"/>
                         </group>
                         <group>
-                            <field name="stage_id"/>
                             <field name="team_id"/>
                             <field name="user_id"
                                    options="{'no_create': True}"/>

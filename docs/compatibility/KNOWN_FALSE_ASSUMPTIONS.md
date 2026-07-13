@@ -105,3 +105,29 @@
   a series is called green. The 19 screenshot capture doubles as the 19 render
   smoke; F-003's `kanban-box→card` rename was Docker-render-confirmed on 17 (and
   card-as-is on 18). Backfill render-smoke for 14–16 is tracked as a follow-up.
+
+## FA-007 — "declaring the same field twice in a form is harmless (widget wins)"
+
+- **Assumption:** listing `stage_id` both as `widget="statusbar"` in the `<header>`
+  and again as a plain `<field name="stage_id"/>` in a `<group>` is a benign,
+  common duplication — the statusbar in the header keeps working everywhere.
+- **Evidence:** render-smoke backfill on 14–18. Kanban + list rendered on all,
+  but the **form threw an OwlError on 16.0 only** (17/18/19 fine). Real cause
+  extracted from the expanded client traceback:
+  `TypeError: Cannot read properties of undefined (reading 'map')` at
+  `StatusBarField.getVisibleMany2Ones`.
+- **Result:** FALSE (16.0-specific hard render failure).
+- **Why wrong:** Odoo 16 `relational_model.js#loadPreloadedData` derives the
+  preload type as `activeField.widget || field.type`. When a field appears twice,
+  the plain (widget-less) occurrence clears `widget` in the merged `activeFields`
+  entry, so `type` resolves to `many2one` instead of `statusbar`. The statusbar
+  preloader is registered under the key `"statusbar"`, so it never runs →
+  `record.preloadedData["stage_id"]` stays `undefined` →
+  `StatusBarField.getAllItems()` returns undefined → `.map` crashes the whole
+  form. 17+ compute statusbar items differently and tolerate the duplicate; 16
+  does not. Invisible to install + `TransactionCase` tests (never paints a view).
+- **Replacement:** golden fix — never declare a field twice in one form; the
+  header statusbar owns `stage_id`, so the redundant group field was removed.
+  Render-smoke green on 14–19 after the fix. (Candidate future lint rule:
+  R-VIEW-009 "a field with a widget must not be re-declared plain in the same
+  form view".)

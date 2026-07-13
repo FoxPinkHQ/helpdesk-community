@@ -73,21 +73,35 @@ Engineering Milestone  ──▶  Compatibility Verified (14–19)  ──▶  M
 
 ### Definition of Done — Market gate
 
-| Version | Install | Tests | Package |
-|---------|:-------:|:-----:|:-------:|
-| 19      | ✅      | ✅    | ⬜      |
-| 18      | ✅      | ✅    | ⬜      |
-| 17      | ✅      | ✅    | ⬜      |
-| 16      | ✅      | ✅    | ⬜      |
-| 15      | ✅      | ✅    | ⬜      |
-| 14      | ✅      | ✅    | ⬜      |
+**Six ordered gates** (a series is not "done" until *all six* are green):
+
+```
+Compile → Install → Tests → Render Smoke → Package → Store Validation
+```
+
+`Render Smoke` is a **first-class, independent gate** (added 2026-07-13, ADR-002).
+It exists because Install + Tests + Docker-green do **NOT** prove the UI renders:
+Odoo's test framework never paints a view in a browser, so client-side failures
+(OwlError, kanban template mismatch, removed `view_mode` view types, missing
+frontend ACLs, portal QWeb) pass every test yet break the product. See FA-006.
+
+| Version | Install | Tests | Render Smoke | Package | Store Val |
+|---------|:-------:|:-----:|:------------:|:-------:|:---------:|
+| 19      | ✅      | ✅    | ✅           | ✅      | ⬜        |
+| 18      | ✅      | ✅    | ⬜           | ⬜      | ⬜        |
+| 17      | ✅      | ✅    | ⬜           | ⬜      | ⬜        |
+| 16      | ✅      | ✅    | ⬜           | ⬜      | ⬜        |
+| 15      | ✅      | ✅    | ⬜           | ⬜      | ⬜        |
+| 14      | ✅      | ✅    | ⬜           | ⬜      | ⬜        |
 
 Install + Tests: **all 6 series green** via the Compatibility Layer (Docker,
-2026-07-13; 14/14 tests each, 0 error). **Package** still pending for every row:
-needs `static/description/` screenshots + Apps-Store packaging + CI.
+2026-07-13; 14/14 tests each, 0 error). Render Smoke: **19 green** (live-instance
+screenshot capture caught F-003 + view_mode + portal-ACL); 14–18 pending (Phase 2B).
+Package: 19 artifact built + validated (`19.0.1.0.2`, forward-slash ZIP, junk-swept);
+per-series packaging pending. Store Validation: pending CI + Apps submission.
 
 A **Market Release** happens only when the full table is green.
-An **Engineering Release** needs only the 19 row.
+An **Engineering Release** needs only the 19 row (Install→Render Smoke).
 
 ### Rule provenance (traceability)
 
