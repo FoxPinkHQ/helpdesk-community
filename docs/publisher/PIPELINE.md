@@ -67,3 +67,16 @@ python ci/pipeline_audit.py --ref-prefix origin/
 - Per-series CHANGELOG stays **out of scope** until series grow independent
   hotfix histories (today every series is generated from canonical, so a single
   canonical CHANGELOG is sufficient).
+
+## Enforcement (applied)
+
+The audit is **not advisory** — it is a required status check via branch
+protection. As of `19.0.1.0.4`:
+
+- Branch protection with **required status check** `Audit gate (MetadataPass +
+  ResearchPass + canonical knowledge)`, `strict=true`, `enforce_admins=true`,
+  force-pushes/deletions disabled on: `19.0`, `18.0`, `16.0` (representative
+  canonical + older series; extend to 14/15/17 as the module count grows).
+- Any push/PR whose commit fails `ci/pipeline_audit.py` is **blocked** — no
+  artifact is built or published from a drifted branch. Drift is caught at the
+  gate, not after merge.
