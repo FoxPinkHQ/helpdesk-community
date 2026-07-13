@@ -4,6 +4,21 @@ All notable changes to this module are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/) and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [19.0.1.0.3] - 2026-07-13
+
+### Fixed
+- **FA-008**: on Odoo 18.0/19.0 the ticket form overflowed past the viewport
+  (>100vw, horizontal scrollbar). The form used the legacy
+  `<div class="oe_chatter">` chatter markup, which 18.0+ no longer treat as the
+  chatter aside; it became a plain flex child that consumed the full width
+  (measured: chatter 1408px, sheet squeezed to 34px at `left=-33`, statusbar
+  off-canvas). Replaced with the modern `<chatter/>` tag, which mounts the OWL
+  chatter as a proper side aside (sheet 886px + chatter 530px @ 1440;
+  `docScrollWidth == innerWidth`, zero overflow verified at 1440/1366/1024/768).
+- **R-VIEW-003** (Compatibility Layer): for Odoo <= 17.0 the `<chatter/>` tag is
+  transformed back to the legacy `<div class="oe_chatter">` idiom (still the
+  endorsed markup through saas-17.4), preserving correct layout across 14.0-17.0.
+
 ## [19.0.1.0.2] - 2026-07-13
 
 ### Fixed
