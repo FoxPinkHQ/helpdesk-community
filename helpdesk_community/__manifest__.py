@@ -1,6 +1,6 @@
 {
     'name': 'Helpdesk Community',
-    'version': '15.0.1.0.3',
+    'version': '15.0.1.0.4',
     'category': 'Services/Helpdesk',
     'summary': 'Helpdesk / Support Ticket Management - Community Edition',
     'description': 'Full-featured helpdesk and support ticket management. Free, open-source, and production-ready.',

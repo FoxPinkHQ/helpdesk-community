@@ -15,6 +15,7 @@ class HelpdeskTicket(models.Model):
         string='Priority', default='medium', tracking=True)
     stage_id = fields.Many2one('helpdesk.stage', string='Stage',
                                 required=True, tracking=True,
+                                default=lambda self: self._default_stage_id(),
                                 group_expand='_read_group_stage_ids')
     team_id = fields.Many2one('helpdesk.team', string='Team', tracking=True)
     user_id = fields.Many2one('res.users', string='Assigned Agent',
@@ -25,6 +26,12 @@ class HelpdeskTicket(models.Model):
     stage_change_date = fields.Datetime(string='Stage Change Date', readonly=True)
     last_activity_date = fields.Datetime(string='Last Activity Date', readonly=True)
     close_date = fields.Datetime(string='Close Date', readonly=True)
+
+    @api.model
+    def _default_stage_id(self):
+        return self.env['helpdesk.stage'].search(
+            [('is_start', '=', True)], limit=1
+        ) or self.env['helpdesk.stage'].search([], limit=1)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -54,16 +61,8 @@ class HelpdeskTicket(models.Model):
         return res
 
     def action_assign(self):
-        self.ensure_one()
-        if not self.user_id:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'helpdesk.ticket',
-                'view_mode': 'form',
-                'res_id': self.id,
-                'target': 'new',
-                'context': {'default_user_id': self.env.user.id},
-            }
+        for ticket in self:
+            ticket.user_id = self.env.user
         return True
 
     def action_reopen(self):
