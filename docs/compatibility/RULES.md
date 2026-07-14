@@ -250,6 +250,28 @@ rule came from when a future Odoo series breaks it.
 - **evidence:** golden 19 installs with groups lacking `category_id`; field
   optional 14–18 (documented, not per-series source-read).
 
+### R-SEC-002 — Menu → Action → Model → ACL (Invariant 13)  ★ Compiler Validator
+- **lifecycle:** Stable · **confidence:** 100%
+- **kind:** Compiler-invariance lint (not a version transform) · version-independent
+- **applies_to:** all series (every generated module)
+- **trigger:** a `<menuitem>` / `ir.ui.menu` with an `action` pointing to an
+  `ir.actions.*` whose `res_model` has **no readable ACL** (`perm_read=1`) for
+  any group that can see the menu.
+- **transform:** none (it is a static consistency gate). The Compiler MUST emit
+  at least one read ACL for a visible group on every menu-exposed model, else
+  `module_consistency_validator.py` fails with `E2001` (no reader at all) or
+  `E2002` (menu `groups` has no reader). `E2003` flags an unresolvable action.
+- **why:** Odoo drops `ir.ui.menu` entries whose action model the user cannot
+  read. Install + unit tests PASS (they never check menu visibility), so the
+  defect ships silently and only appears at runtime. See `docs/adr/013-*.md`.
+- **canonical fix (reference):** grant `base.group_user` **and** `base.group_system`
+  `perm_read` on every model exposed through a menu; add `base.group_system` to
+  the `groups` of top-level Configuration menus. After fix, validator → PASS.
+- **enforced by:** `ci/pipeline_audit.py::audit_compiler_invariant` (mandatory
+  CI Audit gate) + `publisher/odoo_store/module_consistency_validator.py`.
+- **provenance:** introduced_in `19.0.1.0.4` · verified_in live Docker 19
+  (admin saw no menu) + static check · last_validated 2026-07-14
+
 ---
 
 ## ReportPass
