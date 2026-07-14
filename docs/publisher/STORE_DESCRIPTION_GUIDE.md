@@ -113,6 +113,15 @@ oe_* classes:
   OK
 ```
 
+Asset pre-flight (every referenced image + `icon.png` must exist on disk, so
+the manual Store preview cannot fail on a missing asset):
+
+```bash
+python publisher/odoo_store/acceptance.py helpdesk_community/static/description/index.html
+# PASS  -> all referenced images present, icon.png present
+# FAIL  -> lists missing files
+```
+
 ### Pipeline role (Compiler -> Publisher -> Store)
 
 ```
@@ -127,4 +136,15 @@ README.md  ->  Publisher  ->  static/description/index.html  ->  Odoo Apps Store
 
 New modules reuse the same template + validator; only the YAML is touched if
 Odoo's sanitizer changes. This keeps every module correct by construction.
+
+### Acceptance gate (3 stages)
+
+```
+Validator PASS  ->  Preview PASS  ->  Store PASS
+(automated)        (manual)          (manual)
+```
+
+- Stage 1 automated: `validator.py` (HTML compliance) + `acceptance.py`
+  (asset existence). See `docs/publisher/ACCEPTANCE.md` for the full checklist.
+- Stage 2/3 manual: confirmed on the Odoo Apps Store preview after submission.
 
