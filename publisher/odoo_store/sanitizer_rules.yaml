@@ -1,0 +1,140 @@
+# Odoo Apps Store description sanitizer rules (canonical)
+#
+# Source of truth: odoo.tools.html_sanitize (Odoo 19.0 line referenced in
+# docs/publisher/STORE_DESCRIPTION_GUIDE.md). The Odoo Apps Store renders the
+# module description through this function before display.
+#
+# IF Odoo changes its sanitizer, update ONLY this file. The validator reads
+# these rules at runtime (PyYAML required; embedded fallback in validator.py
+# must be kept in sync as a last resort).
+#
+# One rule set -> many modules. This is Publisher Platform infrastructure,
+# NOT Compiler Core.
+
+# Tags that are removed entirely by html_sanitize.
+kill_tags:
+  - base
+  - embed
+  - frame
+  - head
+  - iframe
+  - link
+  - meta
+  - noscript
+  - object
+  - script
+  - style
+  - title
+
+# Inline `style="..."` properties that survive html_sanitize's whitelist.
+allowed_inline_style_properties:
+  - font-size
+  - font-family
+  - font-weight
+  - background-color
+  - background
+  - color
+  - text-align
+  - line-height
+  - letter-spacing
+  - text-transform
+  - text-decoration
+  - opacity
+  - float
+  - vertical-align
+  - display
+  - padding
+  - padding-top
+  - padding-left
+  - padding-bottom
+  - padding-right
+  - margin
+  - margin-top
+  - margin-left
+  - margin-bottom
+  - margin-right
+  - white-space
+  - border
+  - border-color
+  - border-radius
+  - border-style
+  - border-width
+  - border-top
+  - border-bottom
+  - border-left
+  - border-right
+  - border-top-style
+  - border-top-color
+  - border-top-width
+  - border-top-left-radius
+  - border-top-right-radius
+  - border-bottom-style
+  - border-bottom-color
+  - border-bottom-width
+  - border-bottom-left-radius
+  - border-bottom-right-radius
+  - height
+  - width
+  - max-width
+  - min-width
+  - min-height
+  - border-collapse
+  - border-spacing
+  - caption-side
+  - empty-cells
+  - table-layout
+
+# External schemes that are STRIPPED / invalidated by the store.
+forbidden_external_schemes:
+  - fonts.googleapis.com
+  - fonts.gstatic.com
+
+# External schemes that are allowed (kept as links/embeds).
+allowed_external_schemes:
+  - https://www.youtube.com
+  - https://youtu.be
+  - https://teams.microsoft.com
+  - mailto:
+  - skype:
+
+# Class prefixes that are known-safe and survive on the store
+# (Odoo oe_* + Bootstrap 4 utilities).
+allowed_class_patterns:
+  - oe_
+  - col-
+  - row
+  - container
+  - container-fluid
+  - badge
+  - table
+  - img-fluid
+  - img-thumbnail
+  - rounded
+  - border
+  - bg-
+  - text-
+  - mb-
+  - mt-
+  - ml-
+  - mr-
+  - mx-
+  - my-
+  - p-
+  - pt-
+  - pb-
+  - d-flex
+  - d-block
+  - d-inline
+  - d-none
+  - shadow-
+  - font-weight-
+  - text-center
+  - text-left
+  - text-right
+  - align-items-
+  - justify-content-
+  - flex-
+
+# Image path policy: relative paths resolve under static/description/ and
+# survive; absolute/external image URLs are dropped.
+image_path_policy: relative_only
