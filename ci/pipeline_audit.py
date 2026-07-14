@@ -12,7 +12,9 @@ Checks:
   ResearchPass          : matrix.json byte-identical across branches; each
                           THIS_BRANCH.md declares its own series and lists exactly
                           the Stable+exercised transforms matrix.json assigns to it.
-  CanonicalKnowledge    : the version-independent docs are byte-identical everywhere.
+   CanonicalKnowledge    : the version-independent docs are byte-identical everywhere.
+   CompilerInvariant  (13): canonical module has no orphan menu (Menu->Action->Model
+                           must have a readable ACL for a visible group).
 
 Exit code 0 = PASS, 1 = FAIL (drift). No third-party deps.
 
@@ -20,7 +22,9 @@ Usage:  python ci/pipeline_audit.py [--ref-prefix origin/]
 """
 from __future__ import annotations
 import argparse
+import importlib.util
 import json
+import os
 import re
 import subprocess
 import sys
@@ -152,6 +156,26 @@ class Audit:
             if not ok:
                 self.fail(f"{path} not byte-identical (unique={len(hashes)})")
 
+    # ---- Compiler Invariant 13 (Menu -> Action -> Model -> ACL) ------------
+    def audit_compiler_invariant(self) -> None:
+        print("== CompilerInvariant (Invariant 13: Menu->Action->Model->ACL) ==")
+        here = os.path.dirname(os.path.abspath(__file__))
+        repo = os.path.dirname(here)
+        validator = os.path.join(repo, "publisher", "odoo_store",
+                                 "module_consistency_validator.py")
+        module_dir = os.path.join(repo, MODULE)
+        if not os.path.exists(validator):
+            print("  [SKIP] module_consistency_validator.py not present")
+            return
+        spec = importlib.util.spec_from_file_location("mcv", validator)
+        mcv = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mcv)
+        code, report = mcv.run(module_dir)
+        print(report)
+        if code != 0:
+            self.fail("Invariant 13 (Menu->Action->Model->ACL) FAILED on "
+                      "canonical module: orphan menu(s) detected")
+
     def _line(self, s: str, problems: list[str], extra: str = "") -> None:
         ok = not problems
         detail = extra if ok else "; ".join(problems)
@@ -166,6 +190,8 @@ class Audit:
         self.audit_research()
         print()
         self.audit_canonical()
+        print()
+        self.audit_compiler_invariant()
         print()
         if self.failures:
             print(f"PIPELINE AUDIT: FAIL ({len(self.failures)} issue(s))")
