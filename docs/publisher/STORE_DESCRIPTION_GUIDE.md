@@ -74,3 +74,57 @@ Reference: Odoo's own `addons/crm/static/description/index.html`.
 
 `STORE_DESCRIPTION_TEMPLATE.html` — Odoo-compliant body. Copy its content into
 `helpdesk_community/static/description/index.html` when ready to update.
+
+## Publisher Platform (infrastructure)
+
+The Odoo Apps Store is treated as a **publishing target**, exactly like the
+GitHub README, the Marketplace listing or the Docs site. It is owned by a
+separate **Publisher Platform** package, NOT by Compiler Core.
+
+- Canonical template: `docs/publisher/STORE_DESCRIPTION_TEMPLATE.html`
+  (single source of truth for the description body of every module).
+- Canonical rules: `publisher/odoo_store/sanitizer_rules.yaml`
+  (the Odoo sanitizer whitelist above, as machine-readable data — **the only
+  file to edit if Odoo changes its sanitizer**).
+- Validator: `publisher/odoo_store/validator.py`
+
+```bash
+python publisher/odoo_store/validator.py helpdesk_community/static/description/index.html
+# PASS  -> description renders correctly on apps.odoo.com
+# FAIL  -> lists every unsupported construct (kill tags, bad inline props,
+#          external web-fonts, absolute image URLs)
+```
+
+Expected output on a compliant file:
+
+```
+PASS
+
+Unsupported:
+(none)
+
+Image paths:
+  OK (all relative -> resolved under static/description/)
+
+Bootstrap classes:
+  OK
+
+oe_* classes:
+  OK
+```
+
+### Pipeline role (Compiler -> Publisher -> Store)
+
+```
+README.md  ->  Publisher  ->  static/description/index.html  ->  Odoo Apps Store
+              (template + rules + validator)
+```
+
+1. Author the description once in `STORE_DESCRIPTION_TEMPLATE.html`.
+2. Validate it: `python publisher/odoo_store/validator.py <file>` must PASS.
+3. Build/pack (`build_version.ps1` + `package_module.ps1`) embeds it in the ZIP.
+4. Upload the ZIP to the Odoo Apps Store — it renders through `html_sanitize`.
+
+New modules reuse the same template + validator; only the YAML is touched if
+Odoo's sanitizer changes. This keeps every module correct by construction.
+
