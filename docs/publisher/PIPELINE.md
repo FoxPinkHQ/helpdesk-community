@@ -22,6 +22,12 @@ Pipeline
 | Stage | Question it answers | Owns | Where it runs today |
 | ----- | ------------------- | ---- | ------------------- |
 | **Build** | "Are the artifacts generated from canonical?" | CodePass, MetadataPass, ResearchPass, PackagePass | local build toolchain (`build_version.ps1`, `metadata_pass.ps1`, `research_pass.ps1`) |
+
+Every module also ships a **brand asset kit** (see `BRAND_GUIDELINES.md`):
+`logo_prompt.md`, `banner_prompt.md`, `social_post_prompt.md` (per-branch source)
+plus the generated `static/description/icon.png`, `banner.png`, `screenshot_*.png`.
+They ride the module folder through CodePass/PackagePass; the *style* is fixed
+publisher-wide, only the module name/purpose/features change.
 | **Audit** | "Are the artifacts *consistent* with the canonical source?" | R4/R5 (metadata), ResearchPass audit, canonical-knowledge identity, matrix uniqueness | **GitHub Actions** (`.github/workflows/pipeline.yml` → `ci/pipeline_audit.py`) — **required** |
 | **Validate** | "Are the artifacts *correct*?" | unit tests, Playwright render-smoke (14-19), packaging validation | local Docker matrix + `build_market_release.ps1` (heavy; not on free CI yet) |
 | **Publish** | "Ship it." | tag, GitHub Release body (`research_pass.ps1 -ReleaseBodyOut`), Apps Store submission | REST API + manual Apps Store step |
