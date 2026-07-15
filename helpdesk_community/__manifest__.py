@@ -3,7 +3,7 @@
     'version': '19.0.1.0.4',
     'category': 'Services/Helpdesk',
     'summary': 'Helpdesk / Support Ticket Management - Community Edition',
-    'description': 'Full-featured helpdesk and support ticket management. Free, open-source, and production-ready.',
+    'description': 'A full-featured helpdesk and support ticket management system for Odoo Community Edition. Features include ticket creation and assignment, Kanban pipeline management, teams with multi-policy assignment, ticket categories, a customer portal for ticket submission and tracking, email notifications on stage changes and assignment, advanced search and filtering, and three-tier access control (User / Team Leader / Manager). Supports Odoo 14.0 through 19.0. Built on standard Odoo modules (base, mail, portal, web) with no external services or API keys required. Free, open-source, and production-ready. Licensed under LGPL-3.',
     'author': 'FoxPink',
     'website': 'https://github.com/FoxPinkHQ/helpdesk-community',
     'license': 'LGPL-3',
