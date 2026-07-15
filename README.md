@@ -1,8 +1,8 @@
-# Helpdesk Community
+﻿# Helpdesk Community
 
 > Support ticket management for **Odoo 17.0** Community Edition.
 
-**Version:** [next] -- **License:** LGPL-3 -- **Publisher:** FoxPink -- Maintained for **Odoo 17.0-19.0** (one validated build per series)
+**Version:** 17.0.1.0.4 -- **License:** LGPL-3 -- **Publisher:** FoxPink -- Maintained for **Odoo 14.0-19.0** (one validated build per series)
 
 ## Features
 
@@ -60,7 +60,7 @@ After adding the module, restart Odoo, activate Developer Mode, go to **Apps -> 
 | 17.0 | (check) This branch |
 | 15.0 | [Branch 15.0](https://github.com/FoxPinkHQ/helpdesk-community/tree/15.0) |
 | 16.0 | [Branch 16.0](https://github.com/FoxPinkHQ/helpdesk-community/tree/16.0) |
-| 17.0 | ✅ This branch |
+| 17.0 | âœ… This branch |
 | 18.0 | [Branch 18.0](https://github.com/FoxPinkHQ/helpdesk-community/tree/18.0) |
 | 19.0 | [Branch 19.0](https://github.com/FoxPinkHQ/helpdesk-community/tree/19.0) |
 
@@ -88,4 +88,4 @@ Each series has its own git branch and validated release ZIP. Install the build 
 
 ## License
 
-**LGPL-3** -- see [LICENSE](helpdesk_community/LICENSE).
+**LGPL-3** -- see [LICENSE](helpdesk_community/LICENSE).
