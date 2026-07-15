@@ -1,8 +1,8 @@
-# Helpdesk Community
+﻿# Helpdesk Community
 
 > Support ticket management for **Odoo 14.0** Community Edition.
 
-**Version:** [next] -- **License:** LGPL-3 -- **Publisher:** FoxPink -- Maintained for **Odoo 14.0-19.0** (one validated build per series)
+**Version:** 14.0.1.0.4 -- **License:** LGPL-3 -- **Publisher:** FoxPink -- Maintained for **Odoo 14.0-19.0** (one validated build per series)
 
 ## Features
 
@@ -88,4 +88,4 @@ Each series has its own git branch and validated release ZIP. Install the build 
 
 ## License
 
-**LGPL-3** -- see [LICENSE](helpdesk_community/LICENSE).
+**LGPL-3** -- see [LICENSE](helpdesk_community/LICENSE).
