@@ -9,3 +9,5 @@ build/
 # Odoo module: only helpdesk_community/ is the module
 /*
 !/helpdesk_community
+
+!/README.md
