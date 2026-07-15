@@ -1,12 +1,20 @@
 <section class="oe_container">
-    <div class="oe_row oe_spaced" style="max-width:1040px; margin:0 auto;">
+    <div class="oe_row oe_spaced fd-page" style="max-width:1040px; margin:0 auto;">
+        <style>
+@media (max-width: 680px) {
+  .fd-page { padding-left: 12px !important; padding-right: 12px !important; }
+  .fd-page h2 { font-size: 22px !important; }
+  .fd-row { display: block !important; }
+  .fd-row > div { width: 100% !important; display: block !important; margin-left: 0 !important; margin-right: 0 !important; }
+}
+</style>
 
         <!-- HERO -->
         <div style="text-align:center; padding:40px 0 0;">
             <h2 style="font-size:40px; font-weight:800; color:#1e293b; margin:0 0 12px; letter-spacing:-0.5px;">Helpdesk Community</h2>
             <p style="font-size:18px; color:#64748b; max-width:720px; margin:0 auto 24px; line-height:1.7;">
-                A full-featured helpdesk and support ticket management system for Odoo Community Edition.<br/>
-                Manage tickets, teams and customer portals without an Enterprise license.
+                Helpdesk &amp; support ticketing for Odoo Community Edition.<br/>
+                Manage tickets, teams and customer portals &mdash; no Enterprise license required.
             </p>
             <div style="margin:0 0 8px;">
                 <span style="display:inline-block; border:1px solid #4f46e5; color:#4f46e5; font-weight:700; font-size:13px; padding:6px 16px; margin:4px;">Odoo 14.0 &ndash; 19.0</span>
@@ -20,7 +28,7 @@
         </div>
 
         <!-- STATS ROW -->
-        <div style="margin:32px 0; text-align:center;">
+        <div class="fd-row" style="margin:32px 0; text-align:center;">
             <div style="display:inline-block; width:31%; vertical-align:top; border:1px solid #e2e8f0; border-radius:12px; padding:20px; margin:4px;">
                 <div style="font-size:28px; font-weight:800; color:#4f46e5; line-height:1; letter-spacing:-1px;">6</div>
                 <div style="font-size:12px; color:#64748b; font-weight:600; margin-top:6px; text-transform:uppercase; letter-spacing:0.3px;">Odoo versions</div>
@@ -38,7 +46,7 @@
         <!-- FEATURES SECTION -->
         <h2 style="font-size:26px; font-weight:800; color:#1e293b; text-align:center; margin:40px 0 8px;">Key features</h2>
 
-        <div style="display:flex; margin:0 0 8px;">
+        <div class="fd-row" style="display:flex; margin:0 0 8px;">
             <div style="display:inline-block; width:23%; vertical-align:top; border:1px solid #e2e8f0; border-top:3px solid #4f46e5; border-radius:12px; padding:20px; margin:4px; text-align:left;">
                 <h3 style="font-size:14px; font-weight:700; color:#1e293b; margin:0 0 4px;">Ticket management</h3>
                 <p style="font-size:13px; color:#64748b; margin:0; line-height:1.5;">Create, assign, prioritize and resolve tickets with full chatter history and automatic ticket numbering.</p>
@@ -57,7 +65,7 @@
             </div>
         </div>
 
-        <div style="display:flex; margin:0 0 8px;">
+        <div class="fd-row" style="display:flex; margin:0 0 8px;">
             <div style="display:inline-block; width:23%; vertical-align:top; border:1px solid #e2e8f0; border-top:3px solid #7c3aed; border-radius:12px; padding:20px; margin:4px; text-align:left;">
                 <h3 style="font-size:14px; font-weight:700; color:#1e293b; margin:0 0 4px;">Customer portal</h3>
                 <p style="font-size:13px; color:#64748b; margin:0; line-height:1.5;">Portal users can submit, view and track their own tickets without an internal agent login.</p>
@@ -79,7 +87,7 @@
         <!-- WHY CHOOSE -->
         <div style="padding:32px 24px; margin:40px 0;">
             <h2 style="font-size:24px; font-weight:800; color:#1e293b; text-align:center; margin:0 0 24px;">Why Helpdesk Community?</h2>
-            <div style="display:flex; justify-content:center;">
+            <div class="fd-row" style="display:flex; justify-content:center;">
                 <div style="display:inline-block; width:30%; vertical-align:top; border:1px solid #e2e8f0; border-radius:12px; padding:20px 16px; margin:4px; margin-left:auto; text-align:left;">
                     <div style="font-size:18px; font-weight:700; color:#4f46e5; margin:0 0 6px;">Free &amp; Open Source</div>
                     <p style="font-size:13px; color:#64748b; margin:0; line-height:1.6;">Licensed under LGPL-3. No hidden costs, no paid tiers, no feature gates. Fork, modify, redistribute freely.</p>
@@ -206,23 +214,23 @@
         <div style="margin:8px 0;">
             <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #4f46e5; color:#4f46e5; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">1</div>
-                <div><span style="font-weight:600; color:#1e293b;">Install the module</span> from <strong>Apps</strong>. Dependencies (base, mail, portal, web) install automatically.</div>
+                <div style="margin-top:auto; margin-bottom:auto;"><span style="font-weight:600; color:#1e293b;">Install the module</span> from <strong>Apps</strong>. Dependencies (base, mail, portal, web) install automatically.</div>
             </div>
             <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #4f46e5; color:#4f46e5; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">2</div>
-                <div><span style="font-weight:600; color:#1e293b;">Default stages</span> (New &rarr; In Progress &rarr; Resolved &rarr; Closed) are created on install.</div>
+                <div style="margin-top:auto; margin-bottom:auto;"><span style="font-weight:600; color:#1e293b;">Default stages</span> (New &rarr; In Progress &rarr; Resolved &rarr; Closed) are created on install.</div>
             </div>
             <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #4f46e5; color:#4f46e5; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">3</div>
-                <div><span style="font-weight:600; color:#1e293b;">Create teams</span>, add members, set assignment policies and configure categories.</div>
+                <div style="margin-top:auto; margin-bottom:auto;"><span style="font-weight:600; color:#1e293b;">Create teams</span>, add members, set assignment policies and configure categories.</div>
             </div>
             <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #4f46e5; color:#4f46e5; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">4</div>
-                <div><span style="font-weight:600; color:#1e293b;">Configure email</span> &mdash; optionally set up Odoo's outgoing mail server for email notifications.</div>
+                <div style="margin-top:auto; margin-bottom:auto;"><span style="font-weight:600; color:#1e293b;">Configure email</span> &mdash; optionally set up Odoo's outgoing mail server for email notifications.</div>
             </div>
             <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #4f46e5; color:#4f46e5; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">5</div>
-                <div><span style="font-weight:600; color:#1e293b;">Grant portal access</span> to customers who should submit and track tickets.</div>
+                <div style="margin-top:auto; margin-bottom:auto;"><span style="font-weight:600; color:#1e293b;">Grant portal access</span> to customers who should submit and track tickets.</div>
             </div>
             <div style="display:flex; align-items:center; border:1px solid #059669; border-radius:10px; padding:14px 20px; margin-bottom:8px;">
                 <div style="flex-shrink:0; width:32px; height:32px; border-radius:50%; border:2px solid #059669; color:#059669; font-size:14px; font-weight:800; line-height:32px; text-align:center; margin-right:14px; margin-top:auto; margin-bottom:auto;">&#10003;</div>
