@@ -2,6 +2,8 @@
 
 > Support ticket management for **Odoo 14.0** Community Edition.
 
+![Helpdesk Community](helpdesk_community/static/description/banner.png)
+
 **Version:** 14.0.1.0.4 -- **License:** LGPL-3 -- **Publisher:** FoxPink -- Maintained for **Odoo 14.0-19.0** (one validated build per series)
 
 ## Features
